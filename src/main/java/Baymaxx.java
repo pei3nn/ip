@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Baymaxx {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        List<String> items = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
 
         String Greeting = "Hi! I'm Baymaxx (●─●) \n"
                 + "Your personal chatbot assistant \n"
@@ -14,48 +14,94 @@ public class Baymaxx {
         System.out.println(Greeting);
 
         while (true) {
-            System.out.print("Ask me (^-^): ");
-            String input = sc.nextLine();
+            System.out.print("Input here (^-^): ");
+            String input = sc.nextLine().trim().toLowerCase();
 
-            if (input.equalsIgnoreCase("bye")) {
-                System.out.println("────────────────────────────────────────────────\n"
-                        + "👋" + Exit);
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                // Formatting output
-                int width = 50;
-                System.out.print("  ");
-                for (int i = 0; i < width; i++) {
-                    System.out.print("═");
-                }
-                System.out.print(" \n");
-                for (int i = 0; i < items.size(); i++) {
-                    System.out.println("    " + (i + 1) + ". " + items.get(i));
-                }
-                System.out.print("  ");
-                for (int i = 0; i < width; i++) {
-                    System.out.print("═");
-                }
-                System.out.print(" \n");
-            } else {
-                items.add(input);
+            String[] parts = input.split(" ", 2);
+            String command = parts[0];
+            String arg = (parts.length > 1) ? parts[1] : "";
 
-                // Formatting output
-                int padding = 5;
-                int width = input.length() + padding + 8;
-                System.out.print("  ╭");
-                for (int i = 0; i < width; i++) {
-                    System.out.print("─");
-                }
-                System.out.print("╮ \n");
-                System.out.print("  │ added: " + input + "     │ \n");
-                System.out.print("  ╰");
-                for (int i = 0; i < width; i++) {
-                    System.out.print("─");
-                }
-                System.out.print("╯ \n");
+            switch (command) {
+                case "bye":
+                    System.out.println("────────────────────────────────────────────────\n"
+                            + "👋" + Exit);
+                    sc.close();
+                    return;
+
+                case "list":
+                    // Formatting output
+                    System.out.print("  ");
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("═");
+                    }
+                    System.out.print(" \n");
+                    System.out.println("    Here are the tasks in your list:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println("    " + (i + 1) + ". " + tasks.get(i).toString());
+                    }
+                    System.out.print("  ");
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("═");
+                    }
+                    System.out.print(" \n");
+                    break;
+
+                case "mark":
+                    int taskIndex = Integer.parseInt(arg) - 1;
+                    tasks.get(taskIndex).markAsDone();
+
+                    System.out.print("  ");
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("═");
+                    }
+                    System.out.print(" \n");
+                    System.out.println("    Nice! I've marked this task as done:");
+                    System.out.println("    " + "   " + tasks.get(taskIndex).toString());
+                    System.out.print("  ");
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("═");
+                    }
+                    System.out.print(" \n");
+                    break;
+
+                case "unmark":
+                    taskIndex = Integer.parseInt(arg) - 1;
+                    tasks.get(taskIndex).markAsNotDone();
+
+                    System.out.print("  ");
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("═");
+                    }
+                    System.out.print(" \n");
+                    System.out.println("    OK, I've marked this task as not done yet:");
+                    System.out.println("    " + "   " + tasks.get(taskIndex).toString());
+                    System.out.print("  ");
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("═");
+                    }
+                    System.out.print(" \n");
+                    break;
+
+                default:
+                    Task newTask = new Task(input);
+                    tasks.add(newTask);
+
+                    // Formatting output
+                    int padding = 5;
+                    int width = input.length() + padding + 8;
+                    System.out.print("  ╭");
+                    for (int i = 0; i < width; i++) {
+                        System.out.print("─");
+                    }
+                    System.out.print("╮ \n");
+                    System.out.print("  │ added: " + input + "     │ \n");
+                    System.out.print("  ╰");
+                    for (int i = 0; i < width; i++) {
+                        System.out.print("─");
+                    }
+                    System.out.print("╯ \n");
+                    break;
             }
         }
-        sc.close();
     }
 }
