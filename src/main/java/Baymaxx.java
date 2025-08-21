@@ -1,8 +1,11 @@
+import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Baymaxx {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        List<String> items = new ArrayList<>();
 
         String Greeting = "Hi! I'm Baymaxx (●─●) \n"
                 + "Your personal chatbot assistant \n"
@@ -18,17 +21,34 @@ public class Baymaxx {
                 System.out.println("────────────────────────────────────────────────\n"
                         + "👋" + Exit);
                 break;
+            } else if (input.equalsIgnoreCase("list")) {
+                // Formatting output
+                int width = 50;
+                System.out.print("  ");
+                for (int i = 0; i < width; i++) {
+                    System.out.print("═");
+                }
+                System.out.print(" \n");
+                for (int i = 0; i < items.size(); i++) {
+                    System.out.println("    " + (i + 1) + ". " + items.get(i));
+                }
+                System.out.print("  ");
+                for (int i = 0; i < width; i++) {
+                    System.out.print("═");
+                }
+                System.out.print(" \n");
             } else {
-                int padding = 5;
-                int width = input.length() + padding + 1;
+                items.add(input);
 
                 // Formatting output
+                int padding = 5;
+                int width = input.length() + padding + 8;
                 System.out.print("  ╭");
                 for (int i = 0; i < width; i++) {
                     System.out.print("─");
                 }
                 System.out.print("╮ \n");
-                System.out.print("  │ " + input + "     │ \n");
+                System.out.print("  │ added: " + input + "     │ \n");
                 System.out.print("  ╰");
                 for (int i = 0; i < width; i++) {
                     System.out.print("─");
