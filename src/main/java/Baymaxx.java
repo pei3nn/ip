@@ -15,11 +15,14 @@ public class Baymaxx {
 
         while (true) {
             System.out.print("Input here (^-^): ");
-            String input = sc.nextLine().trim().toLowerCase();
+            String input = sc.nextLine().trim();
 
             String[] parts = input.split(" ", 2);
             String command = parts[0];
             String arg = (parts.length > 1) ? parts[1] : "";
+            String[] dateParts = arg.split("/", 2);
+            String desc = dateParts[0];
+            String deadlinePart = (dateParts.length > 1) ? dateParts[1] : "";
 
             switch (command) {
                 case "bye":
@@ -44,6 +47,7 @@ public class Baymaxx {
                         System.out.print("═");
                     }
                     System.out.print(" \n");
+                    System.out.print(" \n");
                     break;
 
                 case "mark":
@@ -56,11 +60,12 @@ public class Baymaxx {
                     }
                     System.out.print(" \n");
                     System.out.println("    Nice! I've marked this task as done:");
-                    System.out.println("    " + "   " + tasks.get(taskIndex).toString());
+                    System.out.println("       " + tasks.get(taskIndex).toString());
                     System.out.print("  ");
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
+                    System.out.print(" \n");
                     System.out.print(" \n");
                     break;
 
@@ -74,11 +79,72 @@ public class Baymaxx {
                     }
                     System.out.print(" \n");
                     System.out.println("    OK, I've marked this task as not done yet:");
-                    System.out.println("    " + "   " + tasks.get(taskIndex).toString());
+                    System.out.println("       " + tasks.get(taskIndex).toString());
                     System.out.print("  ");
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
+                    System.out.print(" \n");
+                    System.out.print(" \n");
+                    break;
+
+                case "todo":
+                    TodoTask t = new TodoTask(arg);
+                    tasks.add(t);
+
+                    System.out.print("  ");
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("═");
+                    }
+                    System.out.print(" \n");
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("       " + t.toString());
+                    System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.print("  ");
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("═");
+                    }
+                    System.out.print(" \n");
+                    System.out.print(" \n");
+                    break;
+
+                case "deadline":
+                    DeadlineTask d = new DeadlineTask(desc, deadlinePart);
+                    tasks.add(d);
+
+                    System.out.print("  ");
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("═");
+                    }
+                    System.out.print(" \n");
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("       " + d.toString());
+                    System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.print("  ");
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("═");
+                    }
+                    System.out.print(" \n");
+                    System.out.print(" \n");
+                    break;
+
+                case "event":
+                    EventTask e = new EventTask(desc, deadlinePart);
+                    tasks.add(e);
+
+                    System.out.print("  ");
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("═");
+                    }
+                    System.out.print(" \n");
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("       " + e.toString());
+                    System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.print("  ");
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("═");
+                    }
+                    System.out.print(" \n");
                     System.out.print(" \n");
                     break;
 
@@ -100,6 +166,7 @@ public class Baymaxx {
                         System.out.print("─");
                     }
                     System.out.print("╯ \n");
+                    System.out.print(" \n");
                     break;
             }
         }
