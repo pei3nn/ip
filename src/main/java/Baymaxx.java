@@ -1,8 +1,32 @@
-import java.util.List;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Baymaxx {
+    public enum Command {
+        BYE,
+        LIST,
+        MARK,
+        UNMARK,
+        DELETE,
+        TODO,
+        DEADLINE,
+        EVENT,
+        UNKNOWN
+    }
+
+    private static Command parseCommand(String input) {
+        switch (input.toLowerCase()) {
+            case "bye": return Command.BYE;
+            case "list": return Command.LIST;
+            case "mark": return Command.MARK;
+            case "unmark": return Command.UNMARK;
+            case "delete": return Command.DELETE;
+            case "todo": return Command.TODO;
+            case "deadline": return Command.DEADLINE;
+            case "event": return Command.EVENT;
+            default: return Command.UNKNOWN;
+        }
+    }
+
     public static void main(String[] args) throws BaymaxxException {
         Scanner sc = new Scanner(System.in);
         TaskCollection tasks = new TaskCollection();
@@ -19,19 +43,21 @@ public class Baymaxx {
 
             String[] parts = input.split(" ", 2);
             String command = parts[0];
+            Command commandEnum = parseCommand(command);
+
             String arg = (parts.length > 1) ? parts[1] : "";
             String[] dateParts = arg.split("/", 2);
             String desc = dateParts[0];
             String deadlinePart = (dateParts.length > 1) ? dateParts[1] : "";
 
-            switch (command) {
-                case "bye":
+            switch (commandEnum) {
+                case BYE:
                     System.out.println("────────────────────────────────────────────────\n"
                             + "👋" + Exit);
                     sc.close();
                     return;
 
-                case "list":
+                case LIST:
                     // Formatting output
                     System.out.print("  ");
                     for (int i = 0; i < 50; i++) {
@@ -50,7 +76,7 @@ public class Baymaxx {
                     System.out.print("\n");
                     break;
 
-                case "mark":
+                case MARK:
                     // catch errors
                     try {
                         if (!isInteger(arg)) {
@@ -82,7 +108,7 @@ public class Baymaxx {
                     }
                     break;
 
-                case "unmark":
+                case UNMARK:
                     // catch errors
                     try {
                         if (!isInteger(arg)) {
@@ -114,7 +140,7 @@ public class Baymaxx {
                     }
                     break;
 
-                case "delete":
+                case DELETE:
                     // catch errors
                     try {
                         if (!isInteger(arg)) {
@@ -148,7 +174,7 @@ public class Baymaxx {
                     }
                     break;
 
-                case "todo":
+                case TODO:
                     // catch errors
                     try {
                         if (arg == "") {
@@ -179,7 +205,7 @@ public class Baymaxx {
                     }
                     break;
 
-                case "deadline":
+                case DEADLINE:
                     // catch errors
                     try {
                         if (arg == "") {
@@ -212,7 +238,7 @@ public class Baymaxx {
                     }
                     break;
 
-                case "event":
+                case EVENT:
                     // catch errors
                     try {
                         if (arg == "") {
@@ -245,7 +271,7 @@ public class Baymaxx {
                     }
                     break;
 
-                default:
+                case UNKNOWN:
                     try {
                         throw new BaymaxxException("(O.O) Sorry! I don't know what you mean.");
                     } catch (BaymaxxException e) {
