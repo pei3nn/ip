@@ -7,10 +7,10 @@ public class Baymaxx {
         Scanner sc = new Scanner(System.in);
         List<Task> tasks = new ArrayList<>();
 
-        String Greeting = "Hi! I'm Baymaxx (●─●) \n"
-                + "Your personal chatbot assistant \n"
-                + "What can I do for you? \n";
-        String Exit = "Goodbye. Hope to see you again soon! (●─●) \n";
+        String Greeting = "Hi! I'm Baymaxx (●─●)\n"
+                + "Your personal chatbot assistant\n"
+                + "What can I do for you?\n";
+        String Exit = "Goodbye. Hope to see you again soon! (●─●)\n";
         System.out.println(Greeting);
 
         while (true) {
@@ -37,7 +37,7 @@ public class Baymaxx {
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
-                    System.out.print(" \n");
+                    System.out.print("\n");
                     System.out.println("    Here are the tasks in your list:");
                     for (int i = 0; i < tasks.size(); i++) {
                         System.out.println("    " + (i + 1) + ". " + tasks.get(i).toString());
@@ -46,8 +46,8 @@ public class Baymaxx {
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
-                    System.out.print(" \n");
-                    System.out.print(" \n");
+                    System.out.print("\n");
+                    System.out.print("\n");
                     break;
 
                 case "mark":
@@ -58,15 +58,15 @@ public class Baymaxx {
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
-                    System.out.print(" \n");
+                    System.out.print("\n");
                     System.out.println("    Nice! I've marked this task as done:");
                     System.out.println("       " + tasks.get(taskIndex).toString());
                     System.out.print("  ");
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
-                    System.out.print(" \n");
-                    System.out.print(" \n");
+                    System.out.print("\n");
+                    System.out.print("\n");
                     break;
 
                 case "unmark":
@@ -77,15 +77,15 @@ public class Baymaxx {
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
-                    System.out.print(" \n");
+                    System.out.print("\n");
                     System.out.println("    OK, I've marked this task as not done yet:");
                     System.out.println("       " + tasks.get(taskIndex).toString());
                     System.out.print("  ");
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
-                    System.out.print(" \n");
-                    System.out.print(" \n");
+                    System.out.print("\n");
+                    System.out.print("\n");
                     break;
 
                 case "todo":
@@ -96,7 +96,7 @@ public class Baymaxx {
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
-                    System.out.print(" \n");
+                    System.out.print("\n");
                     System.out.println("    Got it. I've added this task:");
                     System.out.println("       " + t.toString());
                     System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
@@ -104,8 +104,8 @@ public class Baymaxx {
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
-                    System.out.print(" \n");
-                    System.out.print(" \n");
+                    System.out.print("\n");
+                    System.out.print("\n");
                     break;
 
                 case "deadline":
@@ -116,7 +116,7 @@ public class Baymaxx {
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
-                    System.out.print(" \n");
+                    System.out.print("\n");
                     System.out.println("    Got it. I've added this task:");
                     System.out.println("       " + d.toString());
                     System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
@@ -124,8 +124,8 @@ public class Baymaxx {
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
-                    System.out.print(" \n");
-                    System.out.print(" \n");
+                    System.out.print("\n");
+                    System.out.print("\n");
                     break;
 
                 case "event":
@@ -136,7 +136,7 @@ public class Baymaxx {
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
-                    System.out.print(" \n");
+                    System.out.print("\n");
                     System.out.println("    Got it. I've added this task:");
                     System.out.println("       " + e.toString());
                     System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
@@ -144,8 +144,8 @@ public class Baymaxx {
                     for (int i = 0; i < 50; i++) {
                         System.out.print("═");
                     }
-                    System.out.print(" \n");
-                    System.out.print(" \n");
+                    System.out.print("\n");
+                    System.out.print("\n");
                     break;
 
                 default:
@@ -159,14 +159,14 @@ public class Baymaxx {
                     for (int i = 0; i < width; i++) {
                         System.out.print("─");
                     }
-                    System.out.print("╮ \n");
-                    System.out.print("  │ added: " + input + "     │ \n");
+                    System.out.print("╮\n");
+                    System.out.print("  │ added: " + input + "     │\n");
                     System.out.print("  ╰");
                     for (int i = 0; i < width; i++) {
                         System.out.print("─");
                     }
-                    System.out.print("╯ \n");
-                    System.out.print(" \n");
+                    System.out.print("╯\n");
+                    System.out.print("\n");
                     break;
             }
         }
