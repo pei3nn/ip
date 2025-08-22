@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Baymaxx {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BaymaxxException {
         Scanner sc = new Scanner(System.in);
         List<Task> tasks = new ArrayList<>();
 
@@ -51,124 +51,183 @@ public class Baymaxx {
                     break;
 
                 case "mark":
-                    int taskIndex = Integer.parseInt(arg) - 1;
-                    tasks.get(taskIndex).markAsDone();
+                    // catch errors
+                    try {
+                        if (!isInteger(arg)) {
+                            throw new BaymaxxException("(>.<) Oops! " + arg + " is NOT an integer.");
+                        } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.size()) {
+                            throw new BaymaxxException("(>.<) Oops! There is no such task number: " + arg);
+                        }
 
-                    System.out.print("  ");
-                    for (int i = 0; i < 50; i++) {
-                        System.out.print("═");
+                        // For valid input:
+                        int taskIndex = Integer.parseInt(arg) - 1;
+                        tasks.get(taskIndex).markAsDone();
+
+                        System.out.print("  ");
+                        for (int i = 0; i < 50; i++) {
+                            System.out.print("═");
+                        }
+                        System.out.print("\n");
+                        System.out.println("    Nice! I've marked this task as done:");
+                        System.out.println("       " + tasks.get(taskIndex).toString());
+                        System.out.print("  ");
+                        for (int i = 0; i < 50; i++) {
+                            System.out.print("═");
+                        }
+                        System.out.print("\n");
+                        System.out.print("\n");
+
+                    } catch (BaymaxxException e) {
+                        e.printMessage();
                     }
-                    System.out.print("\n");
-                    System.out.println("    Nice! I've marked this task as done:");
-                    System.out.println("       " + tasks.get(taskIndex).toString());
-                    System.out.print("  ");
-                    for (int i = 0; i < 50; i++) {
-                        System.out.print("═");
-                    }
-                    System.out.print("\n");
-                    System.out.print("\n");
                     break;
 
                 case "unmark":
-                    taskIndex = Integer.parseInt(arg) - 1;
-                    tasks.get(taskIndex).markAsNotDone();
+                    // catch errors
+                    try {
+                        if (!isInteger(arg)) {
+                            throw new BaymaxxException("(>.<) Oops! " + arg + " is NOT an integer.");
+                        } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.size()) {
+                            throw new BaymaxxException("(>.<) Oops! There is no such task number: " + arg);
+                        }
 
-                    System.out.print("  ");
-                    for (int i = 0; i < 50; i++) {
-                        System.out.print("═");
+                        //For valid input:
+                        int taskIndex = Integer.parseInt(arg) - 1;
+                        tasks.get(taskIndex).markAsNotDone();
+
+                        System.out.print("  ");
+                        for (int i = 0; i < 50; i++) {
+                            System.out.print("═");
+                        }
+                        System.out.print("\n");
+                        System.out.println("    OK, I've marked this task as not done yet:");
+                        System.out.println("       " + tasks.get(taskIndex).toString());
+                        System.out.print("  ");
+                        for (int i = 0; i < 50; i++) {
+                            System.out.print("═");
+                        }
+                        System.out.print("\n");
+                        System.out.print("\n");
+
+                    } catch (BaymaxxException e) {
+                        e.printMessage();
                     }
-                    System.out.print("\n");
-                    System.out.println("    OK, I've marked this task as not done yet:");
-                    System.out.println("       " + tasks.get(taskIndex).toString());
-                    System.out.print("  ");
-                    for (int i = 0; i < 50; i++) {
-                        System.out.print("═");
-                    }
-                    System.out.print("\n");
-                    System.out.print("\n");
                     break;
 
                 case "todo":
-                    TodoTask t = new TodoTask(arg);
-                    tasks.add(t);
+                    // catch errors
+                    try {
+                        if (arg == "") {
+                            throw new BaymaxxException("(>.<) Oh no! you don't have a description for todo");
+                        }
 
-                    System.out.print("  ");
-                    for (int i = 0; i < 50; i++) {
-                        System.out.print("═");
+                        // For valid input:
+                        TodoTask t = new TodoTask(arg);
+                        tasks.add(t);
+
+                        System.out.print("  ");
+                        for (int i = 0; i < 50; i++) {
+                            System.out.print("═");
+                        }
+                        System.out.print("\n");
+                        System.out.println("    Got it. I've added this task:");
+                        System.out.println("       " + t.toString());
+                        System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.print("  ");
+                        for (int i = 0; i < 50; i++) {
+                            System.out.print("═");
+                        }
+                        System.out.print("\n");
+                        System.out.print("\n");
+
+                    } catch (BaymaxxException e) {
+                        e.printMessage();
                     }
-                    System.out.print("\n");
-                    System.out.println("    Got it. I've added this task:");
-                    System.out.println("       " + t.toString());
-                    System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.print("  ");
-                    for (int i = 0; i < 50; i++) {
-                        System.out.print("═");
-                    }
-                    System.out.print("\n");
-                    System.out.print("\n");
                     break;
 
                 case "deadline":
-                    DeadlineTask d = new DeadlineTask(desc, deadlinePart);
-                    tasks.add(d);
+                    // catch errors
+                    try {
+                        if (arg == "") {
+                            throw new BaymaxxException("(>.<) Oh no! you don't have a description for your task!");
+                        } else if (!arg.contains("/")) {
+                            throw new BaymaxxException("(>.<) Oh no! you don't have a deadline for your task!");
+                        }
 
-                    System.out.print("  ");
-                    for (int i = 0; i < 50; i++) {
-                        System.out.print("═");
+                        // For valid input:
+                        DeadlineTask d = new DeadlineTask(desc, deadlinePart);
+                        tasks.add(d);
+
+                        System.out.print("  ");
+                        for (int i = 0; i < 50; i++) {
+                            System.out.print("═");
+                        }
+                        System.out.print("\n");
+                        System.out.println("    Got it. I've added this task:");
+                        System.out.println("       " + d.toString());
+                        System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.print("  ");
+                        for (int i = 0; i < 50; i++) {
+                            System.out.print("═");
+                        }
+                        System.out.print("\n");
+                        System.out.print("\n");
+
+                    } catch (BaymaxxException e) {
+                        e.printMessage();
                     }
-                    System.out.print("\n");
-                    System.out.println("    Got it. I've added this task:");
-                    System.out.println("       " + d.toString());
-                    System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.print("  ");
-                    for (int i = 0; i < 50; i++) {
-                        System.out.print("═");
-                    }
-                    System.out.print("\n");
-                    System.out.print("\n");
                     break;
 
                 case "event":
-                    EventTask e = new EventTask(desc, deadlinePart);
-                    tasks.add(e);
+                    // catch errors
+                    try {
+                        if (arg == "") {
+                            throw new BaymaxxException("(>.<) Oh no! you don't have a description for your task!");
+                        } else if (!arg.contains("/")) {
+                            throw new BaymaxxException("(>.<) Oh no! you don't have a time for your task!");
+                        }
 
-                    System.out.print("  ");
-                    for (int i = 0; i < 50; i++) {
-                        System.out.print("═");
+                        //For valid input:
+                        EventTask e = new EventTask(desc, deadlinePart);
+                        tasks.add(e);
+
+                        System.out.print("  ");
+                        for (int i = 0; i < 50; i++) {
+                            System.out.print("═");
+                        }
+                        System.out.print("\n");
+                        System.out.println("    Got it. I've added this task:");
+                        System.out.println("       " + e.toString());
+                        System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.print("  ");
+                        for (int i = 0; i < 50; i++) {
+                            System.out.print("═");
+                        }
+                        System.out.print("\n");
+                        System.out.print("\n");
+
+                    } catch (BaymaxxException e) {
+                        e.printMessage();
                     }
-                    System.out.print("\n");
-                    System.out.println("    Got it. I've added this task:");
-                    System.out.println("       " + e.toString());
-                    System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.print("  ");
-                    for (int i = 0; i < 50; i++) {
-                        System.out.print("═");
-                    }
-                    System.out.print("\n");
-                    System.out.print("\n");
                     break;
 
                 default:
-                    Task newTask = new Task(input);
-                    tasks.add(newTask);
-
-                    // Formatting output
-                    int padding = 5;
-                    int width = input.length() + padding + 8;
-                    System.out.print("  ╭");
-                    for (int i = 0; i < width; i++) {
-                        System.out.print("─");
+                    try {
+                        throw new BaymaxxException("(O.O) Sorry! I don't know what you mean.");
+                    } catch (BaymaxxException e) {
+                        e.printMessage();
                     }
-                    System.out.print("╮\n");
-                    System.out.print("  │ added: " + input + "     │\n");
-                    System.out.print("  ╰");
-                    for (int i = 0; i < width; i++) {
-                        System.out.print("─");
-                    }
-                    System.out.print("╯\n");
-                    System.out.print("\n");
                     break;
             }
+        }
+    }
+
+    public static boolean isInteger(String arg) {
+        try {
+            Integer.parseInt(arg);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }
