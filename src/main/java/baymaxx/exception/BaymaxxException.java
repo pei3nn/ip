@@ -1,4 +1,4 @@
-package exception;
+package baymaxx.exception;
 
 public class BaymaxxException extends Exception {
 

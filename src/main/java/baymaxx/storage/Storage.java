@@ -1,8 +1,8 @@
-package storage;
+package baymaxx.storage;
 
-import task.Task;
-import task.TaskCollection;
-import ui.Ui;
+import baymaxx.task.Task;
+import baymaxx.task.TaskCollection;
+import baymaxx.ui.Ui;
 
 import java.io.File;
 import java.io.IOException;

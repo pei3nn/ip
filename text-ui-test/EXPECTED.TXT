@@ -7,25 +7,25 @@ Input here (^-^):   ╭─────────────────╮
   ╰─────────────────╯
 
 Input here (^-^):   ══════════════════════════════════════════════════
-    Got it. I've added this task:
+    Got it. I've added this baymaxx.task:
        [T][ ] borrow book
     Now you have 2 tasks in the list.
   ══════════════════════════════════════════════════
 
 Input here (^-^):   ══════════════════════════════════════════════════
-    Got it. I've added this task:
+    Got it. I've added this baymaxx.task:
        [D][ ] return book (by: Sunday)
     Now you have 3 tasks in the list.
   ══════════════════════════════════════════════════
 
 Input here (^-^):   ══════════════════════════════════════════════════
-    Got it. I've added this task:
+    Got it. I've added this baymaxx.task:
        [E][ ] project meeting (from: Mon 2pm to: 4pm)
     Now you have 4 tasks in the list.
   ══════════════════════════════════════════════════
 
 Input here (^-^):   ══════════════════════════════════════════════════
-    Nice! I've marked this task as done:
+    Nice! I've marked this baymaxx.task as done:
        [D][X] return book (by: Sunday)
   ══════════════════════════════════════════════════
 
