@@ -1,12 +1,12 @@
-package parser;
+package baymaxx.parser;
 
-import exception.BaymaxxException;
-import storage.Storage;
-import task.DeadlineTask;
-import task.EventTask;
-import task.TaskCollection;
-import task.TodoTask;
-import ui.Ui;
+import baymaxx.exception.BaymaxxException;
+import baymaxx.storage.Storage;
+import baymaxx.task.DeadlineTask;
+import baymaxx.task.EventTask;
+import baymaxx.task.TaskCollection;
+import baymaxx.task.TodoTask;
+import baymaxx.ui.Ui;
 
 public class Parser {
 
@@ -65,7 +65,7 @@ public class Parser {
                     if (!isInteger(arg)) {
                         throw new BaymaxxException("(>.<) Oops! " + arg + " is NOT an integer.");
                     } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
-                        throw new BaymaxxException("(>.<) Oops! There is no such task number: " + arg);
+                        throw new BaymaxxException("(>.<) Oops! There is no such baymaxx.task number: " + arg);
                     }
 
                     // For valid input:
@@ -85,7 +85,7 @@ public class Parser {
                     if (!isInteger(arg)) {
                         throw new BaymaxxException("(>.<) Oops! " + arg + " is NOT an integer.");
                     } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
-                        throw new BaymaxxException("(>.<) Oops! There is no such task number: " + arg);
+                        throw new BaymaxxException("(>.<) Oops! There is no such baymaxx.task number: " + arg);
                     }
 
                     //For valid input:
@@ -105,7 +105,7 @@ public class Parser {
                     if (!isInteger(arg)) {
                         throw new BaymaxxException("(>.<) Oops! " + arg + " is NOT an integer.");
                     } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
-                        throw new BaymaxxException("(>.<) Oops! There is no such task number: " + arg);
+                        throw new BaymaxxException("(>.<) Oops! There is no such baymaxx.task number: " + arg);
                     }
 
                     //For valid input:
@@ -141,9 +141,9 @@ public class Parser {
                 // catch errors
                 try {
                     if (arg == "") {
-                        throw new BaymaxxException("(>.<) Oh no! you don't have a description for your task!");
+                        throw new BaymaxxException("(>.<) Oh no! you don't have a description for your baymaxx.task!");
                     } else if (!arg.contains("/")) {
-                        throw new BaymaxxException("(>.<) Oh no! you don't have a deadline for your task!");
+                        throw new BaymaxxException("(>.<) Oh no! you don't have a deadline for your baymaxx.task!");
                     }
 
                     // For valid input:
@@ -161,9 +161,9 @@ public class Parser {
                 // catch errors
                 try {
                     if (arg == "") {
-                        throw new BaymaxxException("(>.<) Oh no! you don't have a description for your task!");
+                        throw new BaymaxxException("(>.<) Oh no! you don't have a description for your baymaxx.task!");
                     } else if (!arg.contains("/")) {
-                        throw new BaymaxxException("(>.<) Oh no! you don't have a time for your task!");
+                        throw new BaymaxxException("(>.<) Oh no! you don't have a time for your baymaxx.task!");
                     }
 
                     //For valid input:

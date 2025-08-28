@@ -1,4 +1,4 @@
-package task;
+package baymaxx.task;
 
 public class Task {
     protected String description;
@@ -10,7 +10,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done baymaxx.task with X
     }
 
     public void markAsDone() {
@@ -53,7 +53,7 @@ public class Task {
             case ("E"):
                 return new EventTask(desc, (Integer.parseInt(isDone) == 1), by);
             default:
-                throw new IllegalArgumentException("Unknown task type: " + taskType);
+                throw new IllegalArgumentException("Unknown baymaxx.task type: " + taskType);
         }
     }
 }

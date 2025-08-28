@@ -1,7 +1,7 @@
-import parser.Parser;
-import storage.Storage;
-import task.TaskCollection;
-import ui.Ui;
+import baymaxx.parser.Parser;
+import baymaxx.storage.Storage;
+import baymaxx.task.TaskCollection;
+import baymaxx.ui.Ui;
 
 import java.io.IOException;
 import java.util.Scanner;

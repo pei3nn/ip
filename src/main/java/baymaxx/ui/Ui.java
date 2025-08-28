@@ -1,10 +1,9 @@
-package ui;
+package baymaxx.ui;
 
-import storage.Storage;
-import task.DeadlineTask;
-import task.EventTask;
-import task.TaskCollection;
-import task.TodoTask;
+import baymaxx.task.DeadlineTask;
+import baymaxx.task.EventTask;
+import baymaxx.task.TaskCollection;
+import baymaxx.task.TodoTask;
 
 import java.io.IOException;
 
@@ -61,7 +60,7 @@ public class Ui {
             System.out.print("═");
         }
         System.out.print("\n");
-        System.out.println("    Nice! I've marked this task as done:");
+        System.out.println("    Nice! I've marked this baymaxx.task as done:");
         System.out.println("       " + tasks.getTask(taskIndex).toString());
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
@@ -78,7 +77,7 @@ public class Ui {
             System.out.print("═");
         }
         System.out.print("\n");
-        System.out.println("    OK, I've marked this task as not done yet:");
+        System.out.println("    OK, I've marked this baymaxx.task as not done yet:");
         System.out.println("       " + tasks.getTask(taskIndex).toString());
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
@@ -88,14 +87,14 @@ public class Ui {
         System.out.print("\n");
     }
 
-    // Prints deleted task
+    // Prints deleted baymaxx.task
     public void printDeleted(TaskCollection tasks, int taskIndex) {
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
             System.out.print("═");
         }
         System.out.print("\n");
-        System.out.println("    Noted. I've removed this task:");
+        System.out.println("    Noted. I've removed this baymaxx.task:");
         System.out.println("       " + tasks.getTask(taskIndex).toString());
         System.out.println("    Now you have " + (tasks.getSize() - 1) + " tasks in the list.");
         System.out.print("  ");
@@ -106,14 +105,14 @@ public class Ui {
         System.out.print("\n");
     }
 
-    // Prints added todo task
+    // Prints added todo baymaxx.task
     public void printAddedTodo(TaskCollection tasks, TodoTask t) {
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
             System.out.print("═");
         }
         System.out.print("\n");
-        System.out.println("    Got it. I've added this task:");
+        System.out.println("    Got it. I've added this baymaxx.task:");
         System.out.println("       " + t.toString());
         System.out.println("    Now you have " + tasks.getSize() + " tasks in the list.");
         System.out.print("  ");
@@ -124,14 +123,14 @@ public class Ui {
         System.out.print("\n");
     }
 
-    //Prints added deadline task
+    //Prints added deadline baymaxx.task
     public void printAddedDeadline(TaskCollection tasks, DeadlineTask d) {
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
             System.out.print("═");
         }
         System.out.print("\n");
-        System.out.println("    Got it. I've added this task:");
+        System.out.println("    Got it. I've added this baymaxx.task:");
         System.out.println("       " + d.toString());
         System.out.println("    Now you have " + tasks.getSize() + " tasks in the list.");
         System.out.print("  ");
@@ -142,14 +141,14 @@ public class Ui {
         System.out.print("\n");
     }
 
-    //Prints added event task
+    //Prints added event baymaxx.task
     public void printAddedEvent(TaskCollection tasks, EventTask e) {
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
             System.out.print("═");
         }
         System.out.print("\n");
-        System.out.println("    Got it. I've added this task:");
+        System.out.println("    Got it. I've added this baymaxx.task:");
         System.out.println("       " + e.toString());
         System.out.println("    Now you have " + tasks.getSize() + " tasks in the list.");
         System.out.print("  ");

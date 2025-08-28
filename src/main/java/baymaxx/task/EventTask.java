@@ -1,4 +1,4 @@
-package task;
+package baymaxx.task;
 
 public class EventTask extends Task {
     String arg;
