@@ -1,3 +1,5 @@
+import task.Task;
+
 public class DeadlineTask extends Task {
     String deadline;
     public DeadlineTask(String description, String deadline) {

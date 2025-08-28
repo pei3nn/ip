@@ -1,3 +1,5 @@
+import task.Task;
+
 public class EventTask extends Task {
     String arg;
     public EventTask(String description, String arg) {
