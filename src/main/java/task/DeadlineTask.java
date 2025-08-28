@@ -1,5 +1,10 @@
 package task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class DeadlineTask extends Task {
     String deadline;
     public DeadlineTask(String description, boolean isDone, String deadline) {
@@ -11,8 +16,15 @@ public class DeadlineTask extends Task {
     public String toString() {
         String[] parts = deadline.split(" ", 2);
         String command = parts[0];
+
+        // Transforming Dates and Time
         String date = parts[1];
-        return "[D]" + super.toString() + "(" + command + ": " + date + ")";
+        String by;
+        LocalDate d = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        by = d.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+
+
+        return "[D]" + super.toString() + "(" + command + ": " + by + ")";
     }
 
     @Override
