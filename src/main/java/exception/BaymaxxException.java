@@ -1,3 +1,5 @@
+package exception;
+
 public class BaymaxxException extends Exception {
 
     public BaymaxxException(String message) {
