@@ -1,3 +1,9 @@
+import storage.Storage;
+import task.DeadlineTask;
+import task.EventTask;
+import task.TaskCollection;
+import task.TodoTask;
+
 import java.util.Scanner;
 
 public class Baymaxx {
@@ -29,7 +35,10 @@ public class Baymaxx {
 
     public static void main(String[] args) throws BaymaxxException {
         Scanner sc = new Scanner(System.in);
-        TaskCollection tasks = new TaskCollection();
+
+        // Load data when chatbot starts
+        Storage storage = new Storage("data/tasks.txt");
+        TaskCollection tasks = storage.loadTasks();
 
         String Greeting = "Hi! I'm Baymaxx (●─●)\n"
                 + "Your personal chatbot assistant\n"
@@ -88,6 +97,7 @@ public class Baymaxx {
                         // For valid input:
                         int taskIndex = Integer.parseInt(arg) - 1;
                         tasks.getTask(taskIndex).markAsDone();
+                        storage.saveTasks(tasks);
 
                         System.out.print("  ");
                         for (int i = 0; i < 50; i++) {
@@ -120,6 +130,8 @@ public class Baymaxx {
                         //For valid input:
                         int taskIndex = Integer.parseInt(arg) - 1;
                         tasks.getTask(taskIndex).markAsNotDone();
+                        storage.saveTasks(tasks);
+
 
                         System.out.print("  ");
                         for (int i = 0; i < 50; i++) {
@@ -160,7 +172,10 @@ public class Baymaxx {
                         System.out.println("    Noted. I've removed this task:");
                         System.out.println("       " + tasks.getTask(taskIndex).toString());
                         tasks.removeTask(taskIndex);
+                        storage.saveTasks(tasks);
+
                         System.out.println("    Now you have " + tasks.getSize() + " tasks in the list.");
+                        System.out.print("  ");
                         for (int i = 0; i < 50; i++) {
                             System.out.print("═");
                         }
@@ -182,8 +197,10 @@ public class Baymaxx {
                         }
 
                         // For valid input:
-                        TodoTask t = new TodoTask(arg);
+                        TodoTask t = new TodoTask(arg, false);
                         tasks.addTask(t);
+                        storage.saveTasks(tasks);
+
 
                         System.out.print("  ");
                         for (int i = 0; i < 50; i++) {
@@ -215,8 +232,10 @@ public class Baymaxx {
                         }
 
                         // For valid input:
-                        DeadlineTask d = new DeadlineTask(desc, deadlinePart);
+                        DeadlineTask d = new DeadlineTask(desc, false, deadlinePart);
                         tasks.addTask(d);
+                        storage.saveTasks(tasks);
+
 
                         System.out.print("  ");
                         for (int i = 0; i < 50; i++) {
@@ -248,8 +267,10 @@ public class Baymaxx {
                         }
 
                         //For valid input:
-                        EventTask e = new EventTask(desc, deadlinePart);
+                        EventTask e = new EventTask(desc, false, deadlinePart);
                         tasks.addTask(e);
+                        storage.saveTasks(tasks);
+
 
                         System.out.print("  ");
                         for (int i = 0; i < 50; i++) {
