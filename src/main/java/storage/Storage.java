@@ -2,15 +2,14 @@ package storage;
 
 import task.Task;
 import task.TaskCollection;
+import ui.Ui;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
 
 public class Storage {
 
@@ -34,20 +33,16 @@ public class Storage {
                 file.createNewFile();
             }
         } catch (IOException e) {
-            System.out.println("Error creating file: " + e.getMessage());
+            Ui.printCreateFileError(e);
         }
     }
 
-    public TaskCollection loadTasks() {
+    public TaskCollection loadTasks() throws IOException {
         TaskCollection taskList = new TaskCollection();
-        try {
-            List<String> lines = Files.readAllLines(filePath);
-            for (String line : lines) {
-                Task task = Task.fromSaveFormat(line);
-                taskList.addTask(task);
-            }
-        } catch (IOException e) {
-            System.out.println("Error loading tasks: " + e.getMessage());
+        List<String> lines = Files.readAllLines(filePath);
+        for (String line : lines) {
+            Task task = Task.fromSaveFormat(line);
+            taskList.addTask(task);
         }
         return taskList;
     }
@@ -56,7 +51,7 @@ public class Storage {
         try {
             Files.write(filePath, tasks.toSaveFormat());
         } catch (IOException e) {
-            System.out.println("Error saving tasks: " + e.getMessage());
+            Ui.printErrorSavingTask(e);
         }
     }
 }

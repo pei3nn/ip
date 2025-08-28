@@ -18,6 +18,10 @@ public class Ui {
         System.out.println(Greeting);
     }
 
+    public static void printErrorSavingTask(IOException e) {
+        System.out.println("Error saving tasks: " + e.getMessage());
+    }
+
     //Print goodbye message
     public void printGoodbye() {
         String Exit = "Goodbye. Hope to see you again soon! (●─●)\n";
@@ -93,7 +97,7 @@ public class Ui {
         System.out.print("\n");
         System.out.println("    Noted. I've removed this task:");
         System.out.println("       " + tasks.getTask(taskIndex).toString());
-        System.out.println("    Now you have " + tasks.getSize() + " tasks in the list.");
+        System.out.println("    Now you have " + (tasks.getSize() - 1) + " tasks in the list.");
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
             System.out.print("═");
