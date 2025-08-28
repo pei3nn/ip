@@ -1,4 +1,4 @@
-import task.Task;
+package task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,5 +32,11 @@ public class TaskCollection {
 
     public int getSize() {
         return this.tasks.size();
+    }
+
+    public List<String> toSaveFormat() {
+        return this.tasks.stream()
+                .map(x -> x.toSaveFormatString())
+                .toList();
     }
 }

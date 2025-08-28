@@ -1,9 +1,9 @@
-import task.Task;
+package task;
 
 public class EventTask extends Task {
     String arg;
-    public EventTask(String description, String arg) {
-        super(description);
+    public EventTask(String description, boolean isDone, String arg) {
+        super(description, isDone);
         this.arg = arg;
     }
 
@@ -22,5 +22,14 @@ public class EventTask extends Task {
         return "[E]" + super.toString()
                 + "(" + command1 + ": " + time1
                 + command2 + ": " + time2 + ")";
+    }
+
+    @Override
+    public String toSaveFormatString() {
+        if (this.isDone) {
+            return "E | 1 | " + this.description + " | " + this.arg;
+        }
+        return "E | 0 | " + this.description + " | " + this.arg;
+
     }
 }
