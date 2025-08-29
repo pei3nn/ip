@@ -7,6 +7,10 @@ import baymaxx.task.TodoTask;
 
 import java.io.IOException;
 
+/**
+ * Handles all user interface (UI) interactions for Baymaxx.
+ * This includes printing greetings, task lists, messages, and error notifications.
+ */
 public class Ui {
 
     // Prints greetings

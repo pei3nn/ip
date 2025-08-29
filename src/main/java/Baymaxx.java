@@ -34,7 +34,7 @@ public class Baymaxx {
 
             Parser.parse(input, ui, tasks, storage);
 
-            if (Parser.isExit) {
+            if (Parser.isExit()) {
                 isRunning = false;
             }
         }

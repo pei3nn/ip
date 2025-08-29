@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DeadlineTask extends Task {
-    String deadline;
+    private String deadline;
     public DeadlineTask(String description, boolean isDone, String deadline) {
         super(description, isDone);
         this.deadline = deadline;
@@ -27,10 +27,6 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toSaveFormatString() {
-        if (this.isDone) {
-            return "D | 1 | " + this.description + " | " + this.deadline;
-        }
-        return "D | 0 | " + this.description + " | " + this.deadline;
-
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline;
     }
 }

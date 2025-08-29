@@ -10,7 +10,11 @@ import baymaxx.ui.Ui;
 
 public class Parser {
 
-    public static boolean isExit;
+    private static boolean isExit;
+
+    public static boolean isExit() {
+        return isExit;
+    }
 
     public enum Command {
         BYE,
