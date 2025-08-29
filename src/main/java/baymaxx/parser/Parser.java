@@ -2,11 +2,10 @@ package baymaxx.parser;
 
 import baymaxx.exception.BaymaxxException;
 import baymaxx.storage.Storage;
-import baymaxx.task.DeadlineTask;
-import baymaxx.task.EventTask;
-import baymaxx.task.TaskCollection;
-import baymaxx.task.TodoTask;
+import baymaxx.task.*;
 import baymaxx.ui.Ui;
+
+import java.util.List;
 
 public class Parser {
 
@@ -25,6 +24,7 @@ public class Parser {
         TODO,
         DEADLINE,
         EVENT,
+        FIND,
         UNKNOWN
     }
 
@@ -39,6 +39,7 @@ public class Parser {
             case "todo": return Command.TODO;
             case "deadline": return Command.DEADLINE;
             case "event": return Command.EVENT;
+            case "find": return Command.FIND;
             default: return Command.UNKNOWN;
         }
     }
@@ -179,6 +180,17 @@ public class Parser {
                 } catch (BaymaxxException e) {
                     e.printMessage();
                 }
+                break;
+
+            case FIND:
+                List<Task> matchingTasks = tasks.findTasks(arg); // arg is the keyword
+                ui.printFindPossible(matchingTasks);
+//                ui.printDivider();
+//                System.out.println("Here are the matching tasks in your list:");
+//                for (int i = 0; i < matchingTasks.size(); i++) {
+//                    System.out.println((i + 1) + "." + matchingTasks.get(i));
+//                }
+//                ui.printDivider();
                 break;
 
             case UNKNOWN:

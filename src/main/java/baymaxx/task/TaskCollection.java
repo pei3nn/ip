@@ -76,6 +76,18 @@ public class TaskCollection {
     }
 
     /**
+     * Finds all tasks whose descriptions contain the given keyword.
+     *
+     * @param keyword the keyword to search for
+     * @return a list of matching tasks
+     */
+    public List<Task> findTasks(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.description.contains(keyword))
+                .toList();
+    }
+
+    /**
      * Converts all tasks into a list of strings suitable for saving to a file.
      * Each task is converted using its own toSaveFormatString method.
      *
