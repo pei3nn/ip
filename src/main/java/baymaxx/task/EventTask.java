@@ -1,5 +1,10 @@
 package baymaxx.task;
 
+/**
+ * Represents a task that occurs at a specific time or event.
+ * Extends the abstract Task class by adding an argument (e.g., event time or location).
+ * Stores the description, completion status, and additional event information.
+ */
 public class EventTask extends Task {
     String arg;
     public EventTask(String description, boolean isDone, String arg) {
@@ -7,6 +12,9 @@ public class EventTask extends Task {
         this.arg = arg;
     }
 
+    /**
+     * Returns a string representation of this EventTask
+     */
     @Override
     public String toString() {
         String[] timeParts = arg.split("/", 2);
@@ -24,6 +32,10 @@ public class EventTask extends Task {
                 + command2 + ": " + time2 + ")";
     }
 
+    /**
+     * Converts this EventTask into a string suitable for saving to a file.
+     * @return a string representing the EventTask for storage
+     */
     @Override
     public String toSaveFormatString() {
         if (this.isDone) {

@@ -9,7 +9,9 @@ import java.io.IOException;
 
 public class Ui {
 
-    // Prints greetings
+    /**
+     * Prints greetings
+     */
     public static void printGreeting() {
         String Greeting = "Hi! I'm Baymaxx (●─●)\n"
                 + "Your personal chatbot assistant\n"
@@ -21,7 +23,9 @@ public class Ui {
         System.out.println("Error saving tasks: " + e.getMessage());
     }
 
-    //Print goodbye message
+    /**
+     * Prints goodbye message
+     */
     public void printGoodbye() {
         String Exit = "Goodbye. Hope to see you again soon! (●─●)\n";
         System.out.println("────────────────────────────────────────────────\n"
@@ -29,12 +33,16 @@ public class Ui {
 
     }
 
-    // Prints Prompt Line
+    /**
+     * Prints prompt line
+     */
     public void printPromptLine() {
         System.out.print("Input here (^-^): ");
     }
 
-    // Prints list
+    /**
+     * Prints list of tasks
+     */
     public void printList(TaskCollection tasks) {
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
@@ -53,7 +61,9 @@ public class Ui {
         System.out.print("\n");
     }
 
-    // Prints Marked Task
+    /**
+     * Prints marks task
+     */
     public void printMarked(TaskCollection tasks, int taskIndex) {
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
@@ -70,7 +80,9 @@ public class Ui {
         System.out.print("\n");
     }
 
-    // Prints Unmarked Task
+    /**
+     * Prints unmarked task
+     */
     public void printsUnmarked(TaskCollection tasks, int taskIndex) {
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
@@ -87,7 +99,9 @@ public class Ui {
         System.out.print("\n");
     }
 
-    // Prints deleted baymaxx.task
+    /**
+     * Prints deleted task
+     */
     public void printDeleted(TaskCollection tasks, int taskIndex) {
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
@@ -105,7 +119,9 @@ public class Ui {
         System.out.print("\n");
     }
 
-    // Prints added todo baymaxx.task
+    /**
+     * Prints added task for todo
+     */
     public void printAddedTodo(TaskCollection tasks, TodoTask t) {
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
@@ -123,7 +139,9 @@ public class Ui {
         System.out.print("\n");
     }
 
-    //Prints added deadline baymaxx.task
+    /**
+     * Prints added task for deadline
+     */
     public void printAddedDeadline(TaskCollection tasks, DeadlineTask d) {
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
@@ -141,7 +159,9 @@ public class Ui {
         System.out.print("\n");
     }
 
-    //Prints added event baymaxx.task
+    /**
+     * Prints added task for event
+     */
     public void printAddedEvent(TaskCollection tasks, EventTask e) {
         System.out.print("  ");
         for (int i = 0; i < 50; i++) {
@@ -159,19 +179,23 @@ public class Ui {
         System.out.print("\n");
     }
 
-    // Prints error creating the file
+    /**
+     * Prints error when creating file
+     */
     public static void printCreateFileError(IOException e) {
         System.out.println("Error creating file: " + e.getMessage());
     }
 
+    /**
+     * Prints loading error message
+     */
     public void showLoadingError() {
         System.out.println("Error loading saved expenses. Creating new list.");
     }
 
-    public void showMessage(String s) {
-        System.out.println(s);
-    }
-
+    /**
+     * Prints loading success message
+     */
     public void showLoadingSuccess() {
         System.out.println("Loaded saved expenses successfully.");
     }

@@ -9,6 +9,7 @@ public class Task {
         this.isDone = isDone;
     }
 
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done baymaxx.task with X
     }
