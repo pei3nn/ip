@@ -32,8 +32,8 @@ public class TaskCollection {
      *
      * @param t the Task to add
      */
-    public void addTask(Task t) {
-        this.tasks.add(t);
+    public void addTask(Task task) {
+        this.tasks.add(task);
     }
 
     /**
@@ -83,7 +83,7 @@ public class TaskCollection {
      */
     public List<String> toSaveFormat() {
         return this.tasks.stream()
-                .map(x -> x.toSaveFormatString())
+                .map(Task::toSaveFormatString)
                 .toList();
     }
 }

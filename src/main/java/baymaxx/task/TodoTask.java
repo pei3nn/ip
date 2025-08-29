@@ -23,10 +23,6 @@ public class TodoTask extends Task {
      */
     @Override
     public String toSaveFormatString() {
-        if (this.isDone) {
-            return "T | 1 | " + this.description;
-        }
-        return "T | 0 | " + this.description;
-
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 }

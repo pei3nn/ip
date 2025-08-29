@@ -6,7 +6,7 @@ package baymaxx.task;
  * Stores the description, completion status, and additional event information.
  */
 public class EventTask extends Task {
-    String arg;
+    private String arg;
     public EventTask(String description, boolean isDone, String arg) {
         super(description, isDone);
         this.arg = arg;
@@ -38,10 +38,6 @@ public class EventTask extends Task {
      */
     @Override
     public String toSaveFormatString() {
-        if (this.isDone) {
-            return "E | 1 | " + this.description + " | " + this.arg;
-        }
-        return "E | 0 | " + this.description + " | " + this.arg;
-
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + arg;
     }
 }
