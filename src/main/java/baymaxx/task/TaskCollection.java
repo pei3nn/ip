@@ -34,6 +34,18 @@ public class TaskCollection {
         return this.tasks.size();
     }
 
+    /**
+     * Finds all tasks whose descriptions contain the given keyword.
+     *
+     * @param keyword the keyword to search for
+     * @return a list of matching tasks
+     */
+    public List<Task> findTasks(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.description.contains(keyword))
+                .toList();
+    }
+
     public List<String> toSaveFormat() {
         return this.tasks.stream()
                 .map(x -> x.toSaveFormatString())

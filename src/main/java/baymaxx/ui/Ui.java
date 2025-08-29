@@ -1,11 +1,9 @@
 package baymaxx.ui;
 
-import baymaxx.task.DeadlineTask;
-import baymaxx.task.EventTask;
-import baymaxx.task.TaskCollection;
-import baymaxx.task.TodoTask;
+import baymaxx.task.*;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Ui {
 
@@ -170,6 +168,15 @@ public class Ui {
 
     public void showMessage(String s) {
         System.out.println(s);
+    }
+
+    public void printFindPossible(List<Task> matchingTasks) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i));
+        }
+        System.out.println("____________________________________________________________");
     }
 
     public void showLoadingSuccess() {
