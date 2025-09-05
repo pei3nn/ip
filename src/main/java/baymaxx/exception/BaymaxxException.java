@@ -6,19 +6,20 @@ public class BaymaxxException extends Exception {
         super(message);
     }
 
-    public void printMessage() {
-        System.out.print("  ");
-        for (int i = 0; i < 30; i++) {
-            System.out.print("..");
-        }
-        System.out.print("\n");
-        System.out.println("  " + this.getMessage());
-        System.out.print("  ");
-        for (int i = 0; i < 30; i++) {
-            System.out.print("..");
-        }
-        System.out.print("\n");
-        System.out.print("\n");
+    public String printMessage() {
+        return this.getMessage();
+//        System.out.print("  ");
+//        for (int i = 0; i < 30; i++) {
+//            System.out.print("..");
+//        }
+//        System.out.print("\n");
+//        System.out.println("  " + this.getMessage());
+//        System.out.print("  ");
+//        for (int i = 0; i < 30; i++) {
+//            System.out.print("..");
+//        }
+//        System.out.print("\n");
+//        System.out.print("\n");
     }
 
 }

@@ -6,211 +6,128 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Handles all user interface (UI) interactions for Baymaxx.
+ * Handles all user interface (UI) interactions for baymaxx.Baymaxx.
  * This includes printing greetings, task lists, messages, and error notifications.
  */
 public class Ui {
 
     /**
-     * Prints greetings
+     * Returns greetings
      */
-    public static void printGreeting() {
+    public static String printGreeting() {
         String Greeting = "Hi! I'm Baymaxx (●─●)\n"
-                + "Your personal chatbot assistant\n"
-                + "What can I do for you?\n";
-        System.out.println(Greeting);
-    }
-
-    public static void printErrorSavingTask(IOException e) {
-        System.out.println("Error saving tasks: " + e.getMessage());
+                + "Your personal chatbot companion\n"
+                + "What can I do for you today?\n";
+        return Greeting;
     }
 
     /**
-     * Prints goodbye message
+     * Returns error message when saving tasks
      */
-    public void printGoodbye() {
-        String Exit = "Goodbye. Hope to see you again soon! (●─●)\n";
-        System.out.println("────────────────────────────────────────────────\n"
-                + "👋" + Exit);
-
+    public static String printErrorSavingTask(IOException e) {
+        return "Error saving tasks: " + e.getMessage();
     }
 
     /**
-     * Prints prompt line
+     * Returns goodbye message
      */
-    public void printPromptLine() {
-        System.out.print("Input here (^-^): ");
+    public String printGoodbye() {
+        return "Goodbye. BALALALALA!";
     }
 
     /**
-     * Prints list of tasks
+     * Returns list of tasks
      */
-    public void printList(TaskCollection tasks) {
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.println("    Here are the tasks in your list:");
+    public String printList(TaskCollection tasks) {
+        StringBuilder listOfTasks = new StringBuilder();
         for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println("    " + (i + 1) + ". " + tasks.getTask(i).toString());
+            listOfTasks.append((i + 1)).append(". ").append(tasks.getTask(i).toString()).append("\n");
         }
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.print("\n");
+        return "Here are the tasks in your list:\n" + listOfTasks;
     }
 
     /**
-     * Prints marks task
+     * Returns marks task
      */
-    public void printMarked(TaskCollection tasks, int taskIndex) {
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.println("    Nice! I've marked this baymaxx.task as done:");
-        System.out.println("       " + tasks.getTask(taskIndex).toString());
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.print("\n");
+    public String printMarked(TaskCollection tasks, int taskIndex) {
+        String markedTask = tasks.getTask(taskIndex - 1).toString();
+        return "Nice! I've marked this task as done:\n" + markedTask;
     }
 
     /**
-     * Prints unmarked task
+     * Returns unmarked task
      */
-    public void printsUnmarked(TaskCollection tasks, int taskIndex) {
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.println("    OK, I've marked this baymaxx.task as not done yet:");
-        System.out.println("       " + tasks.getTask(taskIndex).toString());
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.print("\n");
+    public String printsUnmarked(TaskCollection tasks, int taskIndex) {
+        String unmarkedTask = tasks.getTask(taskIndex - 1).toString();
+        return "OK, I've marked this task as not done yet:\n" + unmarkedTask;
     }
 
     /**
-     * Prints deleted task
+     * Returns deleted task
      */
-    public void printDeleted(TaskCollection tasks, int taskIndex) {
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.println("    Noted. I've removed this baymaxx.task:");
-        System.out.println("       " + tasks.getTask(taskIndex).toString());
-        System.out.println("    Now you have " + (tasks.getSize() - 1) + " tasks in the list.");
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.print("\n");
+    public String printDeleted(TaskCollection tasks, int taskIndex) {
+        return "Noted. I've removed this task:\n"
+                + tasks.getTask(taskIndex - 1).toString() + "\n"
+                + "Now you have " + (tasks.getSize() - 1) + " tasks in the list.";
     }
 
     /**
-     * Prints added task for todo
+     * Returns added task for todo
      */
-    public void printAddedTodo(TaskCollection tasks, TodoTask t) {
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.println("    Got it. I've added this baymaxx.task:");
-        System.out.println("       " + t.toString());
-        System.out.println("    Now you have " + tasks.getSize() + " tasks in the list.");
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.print("\n");
+    public String printAddedTodo(TaskCollection tasks, TodoTask t) {
+        return "Got it. I've added this task:\n"
+                + t.toString() + "\n"
+                + "Now you have " + tasks.getSize() + " tasks in the list.";
     }
 
     /**
-     * Prints added task for deadline
+     * Returns added task for deadline
      */
-    public void printAddedDeadline(TaskCollection tasks, DeadlineTask d) {
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.println("    Got it. I've added this baymaxx.task:");
-        System.out.println("       " + d.toString());
-        System.out.println("    Now you have " + tasks.getSize() + " tasks in the list.");
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.print("\n");
+    public String printAddedDeadline(TaskCollection tasks, DeadlineTask d) {
+        return "Got it. I've added this task:\n"
+                + d.toString() + "\n"
+                + "Now you have " + tasks.getSize() + " tasks in the list.";
     }
 
     /**
-     * Prints added task for event
+     * Returns added task for event
      */
-    public void printAddedEvent(TaskCollection tasks, EventTask e) {
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.println("    Got it. I've added this baymaxx.task:");
-        System.out.println("       " + e.toString());
-        System.out.println("    Now you have " + tasks.getSize() + " tasks in the list.");
-        System.out.print("  ");
-        for (int i = 0; i < 50; i++) {
-            System.out.print("═");
-        }
-        System.out.print("\n");
-        System.out.print("\n");
+    public String printAddedEvent(TaskCollection tasks, EventTask e) {
+        return "Got it. I've added this task:\n"
+                + e.toString() + "\n"
+                + "Now you have " + tasks.getSize() + " tasks in the list.";
     }
 
     /**
-     * Prints error when creating file
+     * Returns error when creating file
      */
-    public static void printCreateFileError(IOException e) {
-        System.out.println("Error creating file: " + e.getMessage());
+    public static String printCreateFileError(IOException e) {
+        return "Error creating file: " + e.getMessage();
     }
 
     /**
-     * Prints loading error message
+     * Returns loading error message
      */
-    public void showLoadingError() {
-        System.out.println("Error loading saved expenses. Creating new list.");
+    public String showLoadingError() {
+        return "Error loading saved expenses. Creating new list.";
     }
     
     /**
-     * Prints find possible tasks
+     * Returns find possible tasks
      */
-    public void printFindPossible(List<Task> matchingTasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Here are the matching tasks in your list:");
+    public String printFindPossible(List<Task> matchingTasks) {
+        StringBuilder matchedTasksList = new StringBuilder();
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println((i + 1) + "." + matchingTasks.get(i));
+            matchedTasksList.append((i + 1)).append(".").append(matchingTasks.get(i));
         }
-        System.out.println("____________________________________________________________");
+        return "Here are the matching tasks in your list:\n"
+                + matchedTasksList;
     }
 
     /**
-     * Prints loading success message
+     * Returns loading success message
      */
-    public void showLoadingSuccess() {
-        System.out.println("Loaded saved expenses successfully.");
+    public String showLoadingSuccess() {
+        return "Loaded saved expenses successfully.";
     }
 }

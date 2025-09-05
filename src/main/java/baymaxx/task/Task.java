@@ -51,14 +51,14 @@ public class Task {
         String by = parts.length > 3 ? parts[3] : "" ;
 
         switch (taskType) {
-            case ("T"):
-                return new TodoTask(desc, (Integer.parseInt(isDone) == 1));
-            case ("D"):
-                return new DeadlineTask(desc, (Integer.parseInt(isDone) ==1), by);
-            case ("E"):
-                return new EventTask(desc, (Integer.parseInt(isDone) == 1), by);
-            default:
-                throw new IllegalArgumentException("Unknown baymaxx.task type: " + taskType);
+        case ("T"):
+            return new TodoTask(desc, (Integer.parseInt(isDone) == 1));
+        case ("D"):
+            return new DeadlineTask(desc, (Integer.parseInt(isDone) ==1), by);
+        case ("E"):
+            return new EventTask(desc, (Integer.parseInt(isDone) == 1), by);
+        default:
+            throw new IllegalArgumentException("Unknown baymaxx.task type: " + taskType);
         }
     }
 }
