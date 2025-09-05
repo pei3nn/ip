@@ -9,12 +9,6 @@ import java.util.List;
 
 public class Parser {
 
-    private static boolean isExit;
-
-    public static boolean isExit() {
-        return isExit;
-    }
-
     public enum Command {
         BYE,
         LIST,
@@ -44,7 +38,10 @@ public class Parser {
         }
     }
 
-    public static void parse(String input, Ui ui, TaskCollection tasks, Storage storage) {
+    /**
+     * Parses input and returns a response string for GUI display.
+     */
+    public static String parse(String input, Ui ui, TaskCollection tasks, Storage storage) {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
         Command commandEnum = parseCommand(command);
@@ -54,152 +51,108 @@ public class Parser {
         String desc = dateParts[0];
         String deadlinePart = (dateParts.length > 1) ? dateParts[1] : "";
 
-        switch (commandEnum) {
+        try {
+            switch (commandEnum) {
             case BYE:
-                ui.printGoodbye();
-                isExit = true;
-                return;
+                return ui.printGoodbye();
 
             case LIST:
-                ui.printList(tasks);
-                break;
+                return ui.printList(tasks);
 
             case MARK:
                 // catch errors
-                try {
-                    if (!isInteger(arg)) {
-                        throw new BaymaxxException("(>.<) Oops! " + arg + " is NOT an integer.");
-                    } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
-                        throw new BaymaxxException("(>.<) Oops! There is no such baymaxx.task number: " + arg);
-                    }
-
-                    // For valid input:
-                    int taskIndex = Integer.parseInt(arg) - 1;
-                    tasks.getTask(taskIndex).markAsDone();
-                    storage.saveTasks(tasks);
-                    ui.printMarked(tasks, taskIndex);
-
-                } catch (BaymaxxException e) {
-                    e.printMessage();
+                if (!isInteger(arg)) {
+                    throw new BaymaxxException("Oops! " + arg + " is NOT an integer.");
+                } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
+                    throw new BaymaxxException("Oops! There is no such task number: " + arg);
                 }
-                break;
+
+                // For valid input:
+                int taskIndexMark = Integer.parseInt(arg);
+                tasks.getTask(taskIndexMark - 1).markAsDone();
+                storage.saveTasks(tasks);
+                return ui.printMarked(tasks, taskIndexMark);
 
             case UNMARK:
                 // catch errors
-                try {
-                    if (!isInteger(arg)) {
-                        throw new BaymaxxException("(>.<) Oops! " + arg + " is NOT an integer.");
-                    } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
-                        throw new BaymaxxException("(>.<) Oops! There is no such baymaxx.task number: " + arg);
-                    }
-
-                    //For valid input:
-                    int taskIndex = Integer.parseInt(arg) - 1;
-                    tasks.getTask(taskIndex).markAsNotDone();
-                    storage.saveTasks(tasks);
-                    ui.printsUnmarked(tasks, taskIndex);
-
-                } catch (BaymaxxException e) {
-                    e.printMessage();
+                if (!isInteger(arg)) {
+                    throw new BaymaxxException("Oops! " + arg + " is NOT an integer.");
+                } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
+                    throw new BaymaxxException("Oops! There is no such task number: " + arg);
                 }
-                break;
+
+                //For valid input:
+                int taskIndexUnmark = Integer.parseInt(arg);
+                tasks.getTask(taskIndexUnmark - 1).markAsNotDone();
+                storage.saveTasks(tasks);
+                return ui.printsUnmarked(tasks, taskIndexUnmark);
 
             case DELETE:
                 // catch errors
-                try {
-                    if (!isInteger(arg)) {
-                        throw new BaymaxxException("(>.<) Oops! " + arg + " is NOT an integer.");
-                    } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
-                        throw new BaymaxxException("(>.<) Oops! There is no such baymaxx.task number: " + arg);
-                    }
-
-                    //For valid input:
-                    int taskIndex = Integer.parseInt(arg) - 1;
-                    ui.printDeleted(tasks, taskIndex);
-                    tasks.removeTask(taskIndex);
-                    storage.saveTasks(tasks);
-
-                } catch (BaymaxxException e) {
-                    e.printMessage();
+                if (!isInteger(arg)) {
+                    throw new BaymaxxException("Oops! " + arg + " is NOT an integer.");
+                } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
+                    throw new BaymaxxException("Oops! There is no such task number: " + arg);
                 }
-                break;
+
+                //For valid input:
+                int taskIndexDelete = Integer.parseInt(arg);
+                String response = ui.printDeleted(tasks, taskIndexDelete);
+                tasks.removeTask(taskIndexDelete - 1);
+                storage.saveTasks(tasks);
+                return response;
 
             case TODO:
                 // catch errors
-                try {
-                    if (arg == "") {
-                        throw new BaymaxxException("(>.<) Oh no! you don't have a description for todo");
-                    }
-
-                    // For valid input:
-                    TodoTask t = new TodoTask(arg, false);
-                    tasks.addTask(t);
-                    storage.saveTasks(tasks);
-                    ui.printAddedTodo(tasks, t);
-
-                } catch (BaymaxxException e) {
-                    e.printMessage();
+                if (arg == "") {
+                    throw new BaymaxxException("Oh no! you don't have a description for todo");
                 }
-                break;
+
+                // For valid input:
+                TodoTask t = new TodoTask(arg, false);
+                tasks.addTask(t);
+                storage.saveTasks(tasks);
+                return ui.printAddedTodo(tasks, t);
 
             case DEADLINE:
                 // catch errors
-                try {
-                    if (arg == "") {
-                        throw new BaymaxxException("(>.<) Oh no! you don't have a description for your baymaxx.task!");
-                    } else if (!arg.contains("/")) {
-                        throw new BaymaxxException("(>.<) Oh no! you don't have a deadline for your baymaxx.task!");
-                    }
-
-                    // For valid input:
-                    DeadlineTask d = new DeadlineTask(desc, false, deadlinePart);
-                    tasks.addTask(d);
-                    storage.saveTasks(tasks);
-                    ui.printAddedDeadline(tasks, d);
-
-                } catch (BaymaxxException e) {
-                    e.printMessage();
+                if (arg == "") {
+                    throw new BaymaxxException("Oh no! you don't have a description for your task!");
+                } else if (!arg.contains("/")) {
+                    throw new BaymaxxException("Oh no! you don't have a deadline for your task!");
                 }
-                break;
+
+                // For valid input:
+                DeadlineTask d = new DeadlineTask(desc, false, deadlinePart);
+                tasks.addTask(d);
+                storage.saveTasks(tasks);
+                return ui.printAddedDeadline(tasks, d);
 
             case EVENT:
                 // catch errors
-                try {
-                    if (arg == "") {
-                        throw new BaymaxxException("(>.<) Oh no! you don't have a description for your baymaxx.task!");
-                    } else if (!arg.contains("/")) {
-                        throw new BaymaxxException("(>.<) Oh no! you don't have a time for your baymaxx.task!");
-                    }
-
-                    //For valid input:
-                    EventTask e = new EventTask(desc, false, deadlinePart);
-                    tasks.addTask(e);
-                    storage.saveTasks(tasks);
-                    ui.printAddedEvent(tasks, e);
-
-                } catch (BaymaxxException e) {
-                    e.printMessage();
+                if (arg == "") {
+                    throw new BaymaxxException("Oh no! you don't have a description for your task!");
+                } else if (!arg.contains("/")) {
+                    throw new BaymaxxException("Oh no! you don't have a time for your task!");
                 }
-                break;
+
+                //For valid input:
+                EventTask e = new EventTask(desc, false, deadlinePart);
+                tasks.addTask(e);
+                storage.saveTasks(tasks);
+                return ui.printAddedEvent(tasks, e);
 
             case FIND:
                 List<Task> matchingTasks = tasks.findTasks(arg); // arg is the keyword
-                ui.printFindPossible(matchingTasks);
-//                ui.printDivider();
-//                System.out.println("Here are the matching tasks in your list:");
-//                for (int i = 0; i < matchingTasks.size(); i++) {
-//                    System.out.println((i + 1) + "." + matchingTasks.get(i));
-//                }
-//                ui.printDivider();
-                break;
+                return ui.printFindPossible(matchingTasks);
 
             case UNKNOWN:
-                try {
-                    throw new BaymaxxException("(O.O) Sorry! I don't know what you mean.");
-                } catch (BaymaxxException e) {
-                    e.printMessage();
-                }
-                break;
+            default:
+                throw new BaymaxxException("I don't understand that command.");
+            }
+
+        } catch (BaymaxxException e) {
+            return e.printMessage();
         }
     }
 

@@ -1,3 +1,5 @@
+package baymaxx;
+
 import baymaxx.parser.Parser;
 import baymaxx.storage.Storage;
 import baymaxx.task.TaskCollection;
@@ -23,26 +25,33 @@ public class Baymaxx {
         }
     }
 
-    public void run() {
-        Ui.printGreeting();
-        Scanner sc = new Scanner(System.in);
-        boolean isRunning = true;
+//    public void run() {
+//        Ui.printGreeting();
+////        Scanner sc = new Scanner(System.in);
+//        boolean isRunning = true;
+//
+////        while (isRunning) {
+////            ui.printPromptLine();
+////            String input = sc.nextLine().trim();
+//
+//            Parser.parse(input, ui, tasks, storage);
+//
+//            if (Parser.isExit()) {
+//                isRunning = false;
+//            }
+//        }
+//
+//        sc.close();
+//    }
 
-        while (isRunning) {
-            ui.printPromptLine();
-            String input = sc.nextLine().trim();
+//    public static void main(String[] args) {
+//        new Baymaxx("data/tasks.txt").run();
+//    }
 
-            Parser.parse(input, ui, tasks, storage);
-
-            if (Parser.isExit()) {
-                isRunning = false;
-            }
-        }
-
-        sc.close();
-    }
-
-    public static void main(String[] args) {
-        new Baymaxx("data/tasks.txt").run();
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return Parser.parse(input, ui, tasks, storage);
     }
 }
