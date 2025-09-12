@@ -32,32 +32,33 @@ public class Parser {
         UNKNOWN
     }
 
-
     /**
      * Parses the command string and returns the corresponding Command enum.
+     * 
      * @param input The command string from user input
      * @return The matching Command enum value
      */
     private static Command parseCommand(String input) {
-        switch (input.toLowerCase()) {
-            case "bye": return Command.BYE;
-            case "list": return Command.LIST;
-            case "mark": return Command.MARK;
-            case "unmark": return Command.UNMARK;
-            case "delete": return Command.DELETE;
-            case "todo": return Command.TODO;
-            case "deadline": return Command.DEADLINE;
-            case "event": return Command.EVENT;
-            case "find": return Command.FIND;
-            default: return Command.UNKNOWN;
-        }
+        return switch (input.toLowerCase()) {
+            case "bye" -> Command.BYE;
+            case "list" -> Command.LIST;
+            case "mark" -> Command.MARK;
+            case "unmark" -> Command.UNMARK;
+            case "delete" -> Command.DELETE;
+            case "todo" -> Command.TODO;
+            case "deadline" -> Command.DEADLINE;
+            case "event" -> Command.EVENT;
+            case "find" -> Command.FIND;
+            default -> Command.UNKNOWN;
+        };
     }
 
     /**
      * Parses input and returns a response string for GUI display.
-     * @param input The full user input string
-     * @param ui The UI instance for displaying messages
-     * @param tasks The collection of tasks to operate on
+     * 
+     * @param input   The full user input string
+     * @param ui      The UI instance for displaying messages
+     * @param tasks   The collection of tasks to operate on
      * @param storage The storage handler for saving tasks
      * @return The response string to display in the GUI
      */
@@ -76,113 +77,62 @@ public class Parser {
 
         try {
             switch (commandEnum) {
-            case BYE:
-                return ui.printGoodbye();
+                case BYE:
+                    return ui.printGoodbye();
 
-            case LIST:
-                return ui.printList(tasks);
+                case LIST:
+                    return ui.printList(tasks);
 
-            case MARK:
-                // Assert arg is not empty or out of range
-                assert !arg.equals("") : "task number to be marked should not be empty!";
+                case MARK:
+                    validateTaskIndex(arg, tasks);
+                    // For valid input:
+                    int taskIndexMark = Integer.parseInt(arg);
+                    tasks.getTask(taskIndexMark - 1).markAsDone();
+                    storage.saveTasks(tasks);
+                    return ui.printMarked(tasks, taskIndexMark);
 
-                // catch errors
-                if (!isInteger(arg)) {
-                    throw new BaymaxxException("Oops! " + arg + " is NOT an integer.");
-                } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
-                    throw new BaymaxxException("Oops! There is no such task number: " + arg);
-                }
+                case UNMARK:
+                    validateTaskIndex(arg, tasks);
+                    // For valid input:
+                    int taskIndexUnmark = Integer.parseInt(arg);
+                    tasks.getTask(taskIndexUnmark - 1).markAsNotDone();
+                    storage.saveTasks(tasks);
+                    return ui.printUnmarked(tasks, taskIndexUnmark);
 
-                // For valid input:
-                int taskIndexMark = Integer.parseInt(arg);
-                tasks.getTask(taskIndexMark - 1).markAsDone();
-                storage.saveTasks(tasks);
-                return ui.printMarked(tasks, taskIndexMark);
+                case DELETE:
+                    validateTaskIndex(arg, tasks);
+                    // For valid input:
+                    int taskIndexDelete = Integer.parseInt(arg);
+                    String response = ui.printDeleted(tasks, taskIndexDelete);
+                    tasks.removeTask(taskIndexDelete - 1);
+                    storage.saveTasks(tasks);
+                    return response;
 
-            case UNMARK:
-                assert !arg.equals("") : "task number to be marked should not be empty!";
+                case TODO:
+                    TodoTask t = createTodoTask(arg);
+                    tasks.addTask(t);
+                    storage.saveTasks(tasks);
+                    return ui.printAddedTodo(tasks, t);
 
-                // catch errors
-                if (!isInteger(arg)) {
-                    throw new BaymaxxException("Oops! " + arg + " is NOT an integer.");
-                } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
-                    throw new BaymaxxException("Oops! There is no such task number: " + arg);
-                }
+                case DEADLINE:
+                    DeadlineTask d = createDeadlineTask(arg, desc, deadlinePart);
+                    tasks.addTask(d);
+                    storage.saveTasks(tasks);
+                    return ui.printAddedDeadline(tasks, d);
 
-                //For valid input:
-                int taskIndexUnmark = Integer.parseInt(arg);
-                tasks.getTask(taskIndexUnmark - 1).markAsNotDone();
-                storage.saveTasks(tasks);
-                return ui.printsUnmarked(tasks, taskIndexUnmark);
+                case EVENT:
+                    EventTask e = createEventTask(arg, desc, deadlinePart);
+                    tasks.addTask(e);
+                    storage.saveTasks(tasks);
+                    return ui.printAddedEvent(tasks, e);
 
-            case DELETE:
-                assert !arg.equals("") : "task number to be marked should not be empty!";
+                case FIND:
+                    List<Task> matchingTasks = tasks.findTasks(arg);
+                    return ui.printFindPossible(matchingTasks);
 
-                // catch errors
-                if (!isInteger(arg)) {
-                    throw new BaymaxxException("Oops! " + arg + " is NOT an integer.");
-                } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
-                    throw new BaymaxxException("Oops! There is no such task number: " + arg);
-                }
-
-                //For valid input:
-                int taskIndexDelete = Integer.parseInt(arg);
-                String response = ui.printDeleted(tasks, taskIndexDelete);
-                tasks.removeTask(taskIndexDelete - 1);
-                storage.saveTasks(tasks);
-                return response;
-
-            case TODO:
-                // catch errors
-                if (arg == "") {
-                    throw new BaymaxxException("Oh no! you don't have a description for todo");
-                }
-
-                // For valid input:
-                TodoTask t = new TodoTask(arg, false);
-                tasks.addTask(t);
-                storage.saveTasks(tasks);
-                return ui.printAddedTodo(tasks, t);
-
-            case DEADLINE:
-                // catch errors
-                if (arg == "") {
-                    throw new BaymaxxException("Oh no! you don't have a description for your task!");
-                } else if (!arg.contains("/")) {
-                    throw new BaymaxxException("Oh no! you don't have a deadline for your task!");
-                }
-
-                if (!deadlineTaskArg.matches("by \\d{4}-\\d{2}-\\d{2}")) {
-                    throw new BaymaxxException("Oh no! Deadline must be in yyyy-MM-dd format!");
-                }
-
-                // For valid input:
-                DeadlineTask d = new DeadlineTask(desc, false, deadlineTaskArg);
-                tasks.addTask(d);
-                storage.saveTasks(tasks);
-                return ui.printAddedDeadline(tasks, d);
-
-            case EVENT:
-                // catch errors
-                if (arg == "") {
-                    throw new BaymaxxException("Oh no! you don't have a description for your task!");
-                } else if (!arg.contains("/")) {
-                    throw new BaymaxxException("Oh no! you don't have a time for your task!");
-                }
-
-                //For valid input:
-                EventTask e = new EventTask(desc, false, deadlineTaskArg);
-                tasks.addTask(e);
-                storage.saveTasks(tasks);
-                return ui.printAddedEvent(tasks, e);
-
-            case FIND:
-                List<Task> matchingTasks = tasks.findTasks(arg);
-                return ui.printFindPossible(matchingTasks);
-
-            case UNKNOWN:
-            default:
-                throw new BaymaxxException("Sorry.. I don't understand that command.");
+                case UNKNOWN:
+                default:
+                    throw new BaymaxxException("I don't understand that command.");
             }
 
         } catch (BaymaxxException e) {
@@ -199,5 +149,39 @@ public class Parser {
         }
     }
 
+    private static void validateTaskIndex(String arg, TaskCollection tasks) throws BaymaxxException {
+        assert !arg.equals("") : "task number to be marked should not be empty!";
+        if (!isInteger(arg)) {
+            throw new BaymaxxException("Oops! " + arg + " is NOT an integer.");
+        } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
+            throw new BaymaxxException("Oops! There is no such task number: " + arg);
+        }
+    }
+
+    private static TodoTask createTodoTask(String arg) throws BaymaxxException {
+        if (arg.equals("")) {
+            throw new BaymaxxException("Oh no! you don't have a description for todo");
+        }
+        return new TodoTask(arg, false);
+    }
+
+    private static DeadlineTask createDeadlineTask(String arg, String desc, String deadlinePart)
+            throws BaymaxxException {
+        if (arg.equals("")) {
+            throw new BaymaxxException("Oh no! you don't have a description for your task!");
+        } else if (!arg.contains("/")) {
+            throw new BaymaxxException("Oh no! you don't have a deadline for your task!");
+        }
+        return new DeadlineTask(desc, false, deadlinePart);
+    }
+
+    private static EventTask createEventTask(String arg, String desc, String deadlinePart) throws BaymaxxException {
+        if (arg.equals("")) {
+            throw new BaymaxxException("Oh no! you don't have a description for your task!");
+        } else if (!arg.contains("/")) {
+            throw new BaymaxxException("Oh no! you don't have a time for your task!");
+        }
+        return new EventTask(desc, false, deadlinePart);
+    }
 
 }
