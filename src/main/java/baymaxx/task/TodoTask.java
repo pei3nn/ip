@@ -5,12 +5,18 @@ package baymaxx.task;
  * Extends the abstract Task class by storing only a description and completion status.
  */
 public class TodoTask extends Task {
+    /**
+     * Constructs a TodoTask.
+     * @param description Description of the to-do task
+     * @param isDone Completion status of the task
+     */
     public TodoTask(String description, boolean isDone) {
         super(description, isDone);
     }
 
     /**
-     * Returns a string representation of this TodoTask
+     * Returns a string representation of this TodoTask for display.
+     * @return String representation of the TodoTask
      */
     @Override
     public String toString() {
@@ -19,10 +25,10 @@ public class TodoTask extends Task {
 
     /**
      * Converts this TodoTask into a string suitable for saving to a file.
-     * @return a string representing the TodoTask for storage
+     * @return String representing the TodoTask for storage
      */
     @Override
     public String toSaveFormatString() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
+        return "T | " + (isDone() ? "1" : "0") + " | " + getDescription();
     }
 }

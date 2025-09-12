@@ -12,7 +12,9 @@ public class DeadlineTask extends Task {
     private String deadline;
 
     /**
-     * Constructs a DeadlineTask with the specified description, completion status, and deadline.
+     * Constructs a DeadlineTask with the specified description, completion status,
+     * and deadline.
+     * 
      * @param description the description of the task
      * @param isDone      the completion status of the task
      * @param deadline    the deadline of the task in "yyyy-MM-dd" format
@@ -25,11 +27,15 @@ public class DeadlineTask extends Task {
 
     /**
      * Returns a string representation of this DeadlineTask
+     * 
      * @return a string representation of the DeadlineTask
      */
     @Override
     public String toString() {
-        // Splits deadline into type and date, then formats the date for display
+        return "[D]" + super.toString() + "(" + formatDeadline() + ")";
+    }
+
+    private String formatDeadline() {
         String[] deadlineParts = deadline.split(" ", 2);
 
         assert deadlineParts.length == 2 : "Deadline should contain type and date separated by a space";
@@ -38,12 +44,12 @@ public class DeadlineTask extends Task {
 
         LocalDate parsedDate = LocalDate.parse(deadlineDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String formattedDate = parsedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-
-        return "[D]" + super.toString() + "(" + deadlineType + ": " + formattedDate + ")";
+        return deadlineType + ": " + formattedDate;
     }
 
     /**
      * Converts this DeadlineTask into a string suitable for saving to a file.
+     * 
      * @return a string representing the DeadlineTask for storage
      */
     @Override

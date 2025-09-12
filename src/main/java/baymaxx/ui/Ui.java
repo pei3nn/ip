@@ -1,6 +1,10 @@
 package baymaxx.ui;
 
-import baymaxx.task.*;
+import baymaxx.task.DeadlineTask;
+import baymaxx.task.EventTask;
+import baymaxx.task.Task;
+import baymaxx.task.TaskCollection;
+import baymaxx.task.TodoTask;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,7 +16,8 @@ import java.util.List;
 public class Ui {
 
     /**
-     * Returns greetings
+     * Returns the greeting message for the user.
+     * @return Greeting string
      */
     public static String printGreeting() {
         String Greeting = "Hi! I'm Baymaxx (●─●)\n"
@@ -22,21 +27,26 @@ public class Ui {
     }
 
     /**
-     * Returns error message when saving tasks
+     * Returns an error message when saving tasks fails.
+     * @param e The IOException encountered during saving
+     * @return Error message string
      */
     public static String printErrorSavingTask(IOException e) {
         return "Error saving tasks: " + e.getMessage();
     }
 
     /**
-     * Returns goodbye message
+     * Returns the goodbye message.
+     * @return Goodbye string
      */
     public String printGoodbye() {
         return "Goodbye. BALALALALA!";
     }
 
     /**
-     * Returns list of tasks
+     * Returns a formatted list of all tasks.
+     * @param tasks The collection of tasks to display
+     * @return String listing all tasks
      */
     public String printList(TaskCollection tasks) {
         StringBuilder listOfTasks = new StringBuilder();
@@ -47,7 +57,10 @@ public class Ui {
     }
 
     /**
-     * Returns marks task
+     * Returns a message indicating a task has been marked as done.
+     * @param tasks The collection of tasks
+     * @param taskIndex The index (1-based) of the marked task
+     * @return Confirmation message string
      */
     public String printMarked(TaskCollection tasks, int taskIndex) {
         String markedTask = tasks.getTask(taskIndex - 1).toString();
@@ -55,15 +68,21 @@ public class Ui {
     }
 
     /**
-     * Returns unmarked task
+     * Returns a message indicating a task has been marked as not done.
+     * @param tasks The collection of tasks
+     * @param taskIndex The index (1-based) of the unmarked task
+     * @return Confirmation message string
      */
-    public String printsUnmarked(TaskCollection tasks, int taskIndex) {
+    public String printUnmarked(TaskCollection tasks, int taskIndex) {
         String unmarkedTask = tasks.getTask(taskIndex - 1).toString();
         return "OK, I've marked this task as not done yet:\n" + unmarkedTask;
     }
 
     /**
-     * Returns deleted task
+     * Returns a message indicating a task has been deleted.
+     * @param tasks The collection of tasks
+     * @param taskIndex The index (1-based) of the deleted task
+     * @return Deletion confirmation message string
      */
     public String printDeleted(TaskCollection tasks, int taskIndex) {
         return "Noted. I've removed this task:\n"
@@ -72,7 +91,10 @@ public class Ui {
     }
 
     /**
-     * Returns added task for todo
+     * Returns a message indicating a todo task has been added.
+     * @param tasks The collection of tasks
+     * @param t The added TodoTask
+     * @return Addition confirmation message string
      */
     public String printAddedTodo(TaskCollection tasks, TodoTask t) {
         return "Got it. I've added this task:\n"
@@ -81,7 +103,10 @@ public class Ui {
     }
 
     /**
-     * Returns added task for deadline
+     * Returns a message indicating a deadline task has been added.
+     * @param tasks The collection of tasks
+     * @param d The added DeadlineTask
+     * @return Addition confirmation message string
      */
     public String printAddedDeadline(TaskCollection tasks, DeadlineTask d) {
         return "Got it. I've added this task:\n"
@@ -90,7 +115,10 @@ public class Ui {
     }
 
     /**
-     * Returns added task for event
+     * Returns a message indicating an event task has been added.
+     * @param tasks The collection of tasks
+     * @param e The added EventTask
+     * @return Addition confirmation message string
      */
     public String printAddedEvent(TaskCollection tasks, EventTask e) {
         return "Got it. I've added this task:\n"
@@ -99,21 +127,26 @@ public class Ui {
     }
 
     /**
-     * Returns error when creating file
+     * Returns an error message when file creation fails.
+     * @param e The IOException encountered during file creation
+     * @return Error message string
      */
     public static String printCreateFileError(IOException e) {
         return "Error creating file: " + e.getMessage();
     }
 
     /**
-     * Returns loading error message
+     * Returns an error message when loading saved expenses fails.
+     * @return Loading error message string
      */
     public String showLoadingError() {
         return "Error loading saved expenses. Creating new list.";
     }
-    
+
     /**
-     * Returns find possible tasks
+     * Returns a list of tasks that match the search criteria.
+     * @param matchingTasks List of matching tasks
+     * @return String listing matching tasks
      */
     public String printFindPossible(List<Task> matchingTasks) {
         StringBuilder matchedTasksList = new StringBuilder();
@@ -125,7 +158,8 @@ public class Ui {
     }
 
     /**
-     * Returns loading success message
+     * Returns a success message when loading saved expenses succeeds.
+     * @return Loading success message string
      */
     public String showLoadingSuccess() {
         return "Loaded saved expenses successfully.";
