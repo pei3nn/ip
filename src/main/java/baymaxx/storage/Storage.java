@@ -12,7 +12,8 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * Handles loading and saving tasks to a file.
+ * Handles loading and saving tasks to a file for persistence.
+ * Ensures the storage file and its parent directories exist.
  */
 public class Storage {
 
@@ -21,18 +22,21 @@ public class Storage {
     /**
      * Constructs a Storage object with the specified file path.
      * Ensures the file and its parent directory exist.
+     * 
      * @param filePath the path to the storage file
      */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
         ensureFileExist();
+
+        assert this.filePath != null : "filePath should not be null";
+        assert this.filePath.toFile().exists() : "Storage file should exist after ensureFileExist()";
     }
 
     private void ensureFileExist() {
         try {
-            File file = filePath.toFile();
-            createParentDirectoryIfNeeded(file);
-            createFileIfNeeded(file);
+            createParentDirectoryIfNeeded(filePath.toFile());
+            createFileIfNeeded(filePath.toFile());
         } catch (IOException e) {
             Ui.printCreateFileError(e);
         }
@@ -53,6 +57,7 @@ public class Storage {
 
     /**
      * Loads tasks from the storage file.
+     * 
      * @return a TaskCollection containing all loaded tasks
      * @throws IOException if an I/O error occurs reading from the file
      */
@@ -76,6 +81,7 @@ public class Storage {
 
     /**
      * Saves the given tasks to the storage file.
+     * 
      * @param tasks the TaskCollection to save
      */
     public void saveTasks(TaskCollection tasks) {
