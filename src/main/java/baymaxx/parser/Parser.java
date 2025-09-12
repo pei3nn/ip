@@ -115,13 +115,13 @@ public class Parser {
                     return ui.printAddedTodo(tasks, t);
 
                 case DEADLINE:
-                    DeadlineTask d = createDeadlineTask(arg, desc, deadlinePart);
+                    DeadlineTask d = createDeadlineTask(arg, desc, deadlineTaskArg);
                     tasks.addTask(d);
                     storage.saveTasks(tasks);
                     return ui.printAddedDeadline(tasks, d);
 
                 case EVENT:
-                    EventTask e = createEventTask(arg, desc, deadlinePart);
+                    EventTask e = createEventTask(arg, desc, deadlineTaskArg);
                     tasks.addTask(e);
                     storage.saveTasks(tasks);
                     return ui.printAddedEvent(tasks, e);

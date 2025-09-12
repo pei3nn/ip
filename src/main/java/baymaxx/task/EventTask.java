@@ -48,7 +48,7 @@ public class EventTask extends Task {
                 String toCommand = toParts[0];
                 String toTime = toParts[1];
 
-                return command1 + ": " + time1 + " " + command2 + ": " + time2;
+                return fromCommand + ": " + fromTime + " " + toCommand + ": " + toTime;
         }
 
         /**
