@@ -2,13 +2,23 @@ package baymaxx.parser;
 
 import baymaxx.exception.BaymaxxException;
 import baymaxx.storage.Storage;
-import baymaxx.task.*;
+import baymaxx.task.DeadlineTask;
+import baymaxx.task.EventTask;
+import baymaxx.task.Task;
+import baymaxx.task.TaskCollection;
+import baymaxx.task.TodoTask;
 import baymaxx.ui.Ui;
 
 import java.util.List;
 
+/**
+ * Parses user input and executes corresponding commands.
+ */
 public class Parser {
 
+    /**
+     * Enum representing the various commands that can be parsed.
+     */
     public enum Command {
         BYE,
         LIST,
@@ -23,6 +33,11 @@ public class Parser {
     }
 
 
+    /**
+     * Parses the command string and returns the corresponding Command enum.
+     * @param input The command string from user input
+     * @return The matching Command enum value
+     */
     private static Command parseCommand(String input) {
         switch (input.toLowerCase()) {
             case "bye": return Command.BYE;
@@ -40,16 +55,24 @@ public class Parser {
 
     /**
      * Parses input and returns a response string for GUI display.
+     * @param input The full user input string
+     * @param ui The UI instance for displaying messages
+     * @param tasks The collection of tasks to operate on
+     * @param storage The storage handler for saving tasks
+     * @return The response string to display in the GUI
      */
     public static String parse(String input, Ui ui, TaskCollection tasks, Storage storage) {
         String[] parts = input.split(" ", 2);
+
+        assert parts.length >= 1 : "There should be at least one command in the input!";
+
         String command = parts[0];
         Command commandEnum = parseCommand(command);
 
         String arg = (parts.length > 1) ? parts[1] : "";
         String[] dateParts = arg.split("/", 2);
         String desc = dateParts[0];
-        String deadlinePart = (dateParts.length > 1) ? dateParts[1] : "";
+        String deadlineTaskArg = (dateParts.length > 1) ? dateParts[1] : "";
 
         try {
             switch (commandEnum) {
@@ -60,6 +83,9 @@ public class Parser {
                 return ui.printList(tasks);
 
             case MARK:
+                // Assert arg is not empty or out of range
+                assert !arg.equals("") : "task number to be marked should not be empty!";
+
                 // catch errors
                 if (!isInteger(arg)) {
                     throw new BaymaxxException("Oops! " + arg + " is NOT an integer.");
@@ -74,6 +100,8 @@ public class Parser {
                 return ui.printMarked(tasks, taskIndexMark);
 
             case UNMARK:
+                assert !arg.equals("") : "task number to be marked should not be empty!";
+
                 // catch errors
                 if (!isInteger(arg)) {
                     throw new BaymaxxException("Oops! " + arg + " is NOT an integer.");
@@ -88,6 +116,8 @@ public class Parser {
                 return ui.printsUnmarked(tasks, taskIndexUnmark);
 
             case DELETE:
+                assert !arg.equals("") : "task number to be marked should not be empty!";
+
                 // catch errors
                 if (!isInteger(arg)) {
                     throw new BaymaxxException("Oops! " + arg + " is NOT an integer.");
@@ -122,8 +152,12 @@ public class Parser {
                     throw new BaymaxxException("Oh no! you don't have a deadline for your task!");
                 }
 
+                if (!deadlineTaskArg.matches("by \\d{4}-\\d{2}-\\d{2}")) {
+                    throw new BaymaxxException("Oh no! Deadline must be in yyyy-MM-dd format!");
+                }
+
                 // For valid input:
-                DeadlineTask d = new DeadlineTask(desc, false, deadlinePart);
+                DeadlineTask d = new DeadlineTask(desc, false, deadlineTaskArg);
                 tasks.addTask(d);
                 storage.saveTasks(tasks);
                 return ui.printAddedDeadline(tasks, d);
@@ -137,18 +171,18 @@ public class Parser {
                 }
 
                 //For valid input:
-                EventTask e = new EventTask(desc, false, deadlinePart);
+                EventTask e = new EventTask(desc, false, deadlineTaskArg);
                 tasks.addTask(e);
                 storage.saveTasks(tasks);
                 return ui.printAddedEvent(tasks, e);
 
             case FIND:
-                List<Task> matchingTasks = tasks.findTasks(arg); // arg is the keyword
+                List<Task> matchingTasks = tasks.findTasks(arg);
                 return ui.printFindPossible(matchingTasks);
 
             case UNKNOWN:
             default:
-                throw new BaymaxxException("I don't understand that command.");
+                throw new BaymaxxException("Sorry.. I don't understand that command.");
             }
 
         } catch (BaymaxxException e) {

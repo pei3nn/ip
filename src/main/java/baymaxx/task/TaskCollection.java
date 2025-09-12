@@ -23,6 +23,7 @@ public class TaskCollection {
      * @param tasks the initial list of tasks
      */
     public TaskCollection(List<Task> tasks) {
+        assert tasks != null : "Initial tasks list should not be null";
         this.tasks = tasks;
     }
 
@@ -31,6 +32,7 @@ public class TaskCollection {
      * @param task the Task to add
      */
     public void addTask(Task task) {
+        assert task != null : "Task to add should not be null";
         this.tasks.add(task);
     }
 
@@ -40,6 +42,7 @@ public class TaskCollection {
      * @throws IndexOutOfBoundsException if index is out of range
      */
     public void removeTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         this.tasks.remove(index);
     }
 
@@ -50,6 +53,7 @@ public class TaskCollection {
      * @throws IndexOutOfBoundsException if index is out of range
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         return this.tasks.get(index);
     }
 
@@ -75,8 +79,9 @@ public class TaskCollection {
      * @return a list of matching tasks
      */
     public List<Task> findTasks(String keyword) {
+        assert keyword != null : "Keyword should not be null";
         return tasks.stream()
-                .filter(task -> task.description.contains(keyword))
+                .filter(task -> task.getDescription().contains(keyword))
                 .toList();
     }
 
