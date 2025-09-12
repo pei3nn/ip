@@ -17,6 +17,11 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
+        return "[E]" + super.toString()
+                + "(" + formatEvent() + ")";
+    }
+
+    private String formatEvent() {
         String[] timeParts = arg.split("/", 2);
         String fromTime = timeParts[0];
         String[] parts1 = fromTime.split(" ", 2);
@@ -27,9 +32,7 @@ public class EventTask extends Task {
         String command2 = parts2[0];
         String time2 = parts2[1];
 
-        return "[E]" + super.toString()
-                + "(" + command1 + ": " + time1
-                + command2 + ": " + time2 + ")";
+        return command1 + ": " + time1 + " " + command2 + ": " + time2;
     }
 
     /**

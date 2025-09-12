@@ -58,7 +58,7 @@ public class Task {
         case ("E"):
             return new EventTask(desc, (Integer.parseInt(isDone) == 1), by);
         default:
-            throw new IllegalArgumentException("Unknown baymaxx.task type: " + taskType);
+            throw new IllegalArgumentException("Unknown task type: " + taskType);
         }
     }
 }

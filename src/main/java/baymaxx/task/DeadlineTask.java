@@ -20,6 +20,10 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
+        return "[D]" + super.toString() + "(" + formatDeadline() + ")";
+    }
+
+    private String formatDeadline() {
         String[] parts = deadline.split(" ", 2);
         String command = parts[0];
 
@@ -28,9 +32,7 @@ public class DeadlineTask extends Task {
         String by;
         LocalDate d = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         by = d.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-//        return "[D]" + super.toString() + "(by: " + by + ")";
-
-        return "[D]" + super.toString() + "(" + command + ": " + by + ")";
+        return command + ": " + by;
     }
 
     /**

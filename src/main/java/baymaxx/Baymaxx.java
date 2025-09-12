@@ -16,37 +16,19 @@ public class Baymaxx {
     public Baymaxx(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        try {
-            tasks = storage.loadTasks();
-            ui.showLoadingSuccess();
-        } catch (IOException e) {
-            ui.showLoadingError();
-            tasks = new TaskCollection();
-        }
+        tasks = loadsTaskFromStorage(storage);
     }
 
-//    public void run() {
-//        Ui.printGreeting();
-////        Scanner sc = new Scanner(System.in);
-//        boolean isRunning = true;
-//
-////        while (isRunning) {
-////            ui.printPromptLine();
-////            String input = sc.nextLine().trim();
-//
-//            Parser.parse(input, ui, tasks, storage);
-//
-//            if (Parser.isExit()) {
-//                isRunning = false;
-//            }
-//        }
-//
-//        sc.close();
-//    }
-
-//    public static void main(String[] args) {
-//        new Baymaxx("data/tasks.txt").run();
-//    }
+    private TaskCollection loadsTaskFromStorage(Storage storage) {
+        try {
+            TaskCollection tasks = storage.loadTasks();
+            ui.showLoadingSuccess();
+            return tasks;
+        } catch (IOException e) {
+            ui.showLoadingError();
+            return new TaskCollection();
+        }
+    }
 
     /**
      * Generates a response for the user's chat message.

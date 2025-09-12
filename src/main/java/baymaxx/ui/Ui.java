@@ -73,7 +73,7 @@ public class Ui {
      * @param taskIndex The index (1-based) of the unmarked task
      * @return Confirmation message string
      */
-    public String printsUnmarked(TaskCollection tasks, int taskIndex) {
+    public String printUnmarked(TaskCollection tasks, int taskIndex) {
         String unmarkedTask = tasks.getTask(taskIndex - 1).toString();
         return "OK, I've marked this task as not done yet:\n" + unmarkedTask;
     }
