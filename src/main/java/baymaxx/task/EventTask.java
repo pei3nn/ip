@@ -7,29 +7,43 @@ package baymaxx.task;
  */
 public class EventTask extends Task {
     private String arg;
+
+    /**
+     * Constructs an EventTask.
+     * @param description Description of the event task
+     * @param isDone Completion status of the task
+     * @param arg Event details in "command1 time1/command2 time2" format
+     */
     public EventTask(String description, boolean isDone, String arg) {
         super(description, isDone);
         this.arg = arg;
     }
 
     /**
-     * Returns a string representation of this EventTask
+     * Returns a string representation of this EventTask.
+     * @return String representation for display
      */
     @Override
     public String toString() {
+        assert arg != null : "Event argument should not be null";
         String[] timeParts = arg.split("/", 2);
-        String fromTime = timeParts[0];
-        String[] parts1 = fromTime.split(" ", 2);
-        String command1 = parts1[0];
-        String time1 = parts1[1];
-        String toTime = (timeParts.length > 1) ? timeParts[1] : "";
-        String[] parts2 = toTime.split(" ", 2);
-        String command2 = parts2[0];
-        String time2 = parts2[1];
+        assert timeParts.length >= 1 : "Event argument should contain at least one '/' separator";
+
+        String from = timeParts[0];
+        String[] fromParts = from.split(" ", 2);
+        assert fromParts.length == 2 : "From part should contain command and time separated by a space";
+        String fromCommand = fromParts[0];
+        String fromTime = fromParts[1];
+
+        String to = (timeParts.length > 1) ? timeParts[1] : "";
+        String[] toParts = to.split(" ", 2);
+        assert toParts.length == 2 : "To part should contain command and time separated by a space";
+        String toCommand = toParts[0];
+        String toTime = toParts[1];
 
         return "[E]" + super.toString()
-                + "(" + command1 + ": " + time1
-                + command2 + ": " + time2 + ")";
+                + "(" + fromCommand + ": " + fromTime
+                + toCommand + ": " + toTime + ")";
     }
 
     /**
@@ -38,6 +52,6 @@ public class EventTask extends Task {
      */
     @Override
     public String toSaveFormatString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + arg;
+        return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + arg;
     }
 }
