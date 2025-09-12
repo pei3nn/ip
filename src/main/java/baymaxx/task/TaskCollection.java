@@ -20,7 +20,6 @@ public class TaskCollection {
 
     /**
      * Constructs a TaskCollection initialized with a list of tasks.
-     *
      * @param tasks the initial list of tasks
      */
     public TaskCollection(List<Task> tasks) {
@@ -29,8 +28,7 @@ public class TaskCollection {
 
     /**
      * Adds a task to the collection.
-     *
-     * @param t the Task to add
+     * @param task the Task to add
      */
     public void addTask(Task task) {
         this.tasks.add(task);
@@ -38,7 +36,6 @@ public class TaskCollection {
 
     /**
      * Removes a task from the collection by index.
-     *
      * @param index the index of the task to remove
      * @throws IndexOutOfBoundsException if index is out of range
      */
@@ -48,7 +45,6 @@ public class TaskCollection {
 
     /**
      * Retrieves a task from the collection by index.
-     *
      * @param index the index of the task to retrieve
      * @return the Task at the specified index
      * @throws IndexOutOfBoundsException if index is out of range
@@ -59,7 +55,6 @@ public class TaskCollection {
 
     /**
      * Returns all tasks in the collection.
-     *
      * @return a List of all tasks
      */
     public List<Task> getAllTasks() {
@@ -68,7 +63,6 @@ public class TaskCollection {
 
     /**
      * Returns the number of tasks in the collection.
-     *
      * @return the size of the task collection
      */
     public int getSize() {
@@ -77,7 +71,6 @@ public class TaskCollection {
 
     /**
      * Finds all tasks whose descriptions contain the given keyword.
-     *
      * @param keyword the keyword to search for
      * @return a list of matching tasks
      */
@@ -90,7 +83,6 @@ public class TaskCollection {
     /**
      * Converts all tasks into a list of strings suitable for saving to a file.
      * Each task is converted using its own toSaveFormatString method.
-     *
      * @return a List of strings representing the tasks for storage
      */
     public List<String> toSaveFormat() {
