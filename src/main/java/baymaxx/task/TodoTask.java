@@ -10,8 +10,8 @@ public class TodoTask extends Task {
      * @param description Description of the to-do task
      * @param isDone Completion status of the task
      */
-    public TodoTask(String description, boolean isDone) {
-        super(description, isDone);
+    public TodoTask(String description, boolean isDone, String note) {
+        super(description, isDone, note);
     }
 
     /**
@@ -20,7 +20,8 @@ public class TodoTask extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString()
+                + (getNote().equals("") ? "" : " {" + getNote() + "}");
     }
 
     /**
@@ -29,6 +30,6 @@ public class TodoTask extends Task {
      */
     @Override
     public String toSaveFormatString() {
-        return "T | " + (isDone() ? "1" : "0") + " | " + getDescription();
+        return "T | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + getNote();
     }
 }

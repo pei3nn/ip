@@ -19,8 +19,8 @@ public class DeadlineTask extends Task {
      * @param isDone      the completion status of the task
      * @param deadline    the deadline of the task in "yyyy-MM-dd" format
      */
-    public DeadlineTask(String description, boolean isDone, String deadline) {
-        super(description, isDone);
+    public DeadlineTask(String description, boolean isDone, String note, String deadline) {
+        super(description, isDone, note);
         assert deadline != null && !deadline.equals("") : "Deadline cannot be null or empty";
         this.deadline = deadline;
     }
@@ -32,7 +32,8 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(" + formatDeadline() + ")";
+        return "[D]" + super.toString() + "(" + formatDeadline() + ")"
+                + (getNote().equals("") ? "" : " {" + getNote() + "}");
     }
 
     private String formatDeadline() {
@@ -54,6 +55,6 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toSaveFormatString() {
-        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + deadline;
+        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + deadline + " | " + getNote();
     }
 }

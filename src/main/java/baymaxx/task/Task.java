@@ -7,15 +7,18 @@ package baymaxx.task;
 public class Task {
     private String description;
     private boolean isDone;
+    private String note;
 
     /**
      * Constructs a Task with the specified description and completion status.
      * @param description Description of the task
      * @param isDone True if the task is completed, false otherwise
+     * @param note Additional notes of the task
      */
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, String note) {
         this.description = description;
         this.isDone = isDone;
+        this.note = note;
     }
 
     /**
@@ -57,6 +60,22 @@ public class Task {
     }
 
     /**
+     * Returns the additional notes to this task
+     * @return Task notes
+     */
+    public String getNote() {
+        return this.note;
+    }
+
+    /**
+     * Adds note to this task
+     * @param note Task notes
+     */
+    public void addNote(String note) {
+        this.note = note;
+    }
+
+    /**
      * Returns a string representation of this task for display.
      * @return String representation of the task
      */
@@ -91,15 +110,22 @@ public class Task {
         String taskType = parts[0];
         String isDone = parts[1];
         String desc = parts[2];
-        String by = parts.length > 3 ? parts[3] : "" ;
 
         switch (taskType) {
-        case ("T"):
-            return new TodoTask(desc, (Integer.parseInt(isDone) == 1));
-        case ("D"):
-            return new DeadlineTask(desc, (Integer.parseInt(isDone) ==1), by);
-        case ("E"):
-            return new EventTask(desc, (Integer.parseInt(isDone) == 1), by);
+        case ("T"): // T | 1 | read book | Harry Potter
+            String todoNote = parts.length > 3 ?parts[3] : "";
+            return new TodoTask(desc, (Integer.parseInt(isDone) == 1), todoNote);
+
+        case ("D"): // D | 0 | return book | by 2025-10-30 | National Library
+            String by = parts[3];
+            String deadlineNote = parts.length > 4 ?parts[4] : "";
+            return new DeadlineTask(desc, (Integer.parseInt(isDone) ==1), deadlineNote, by);
+
+        case ("E"): // E | 0 | proj meeting  | from Mon 2pm /to 5pm | CS2103T
+            String time = parts[3];
+            String eventNote = parts.length > 4 ?parts[4] : "";
+            return new EventTask(desc, (Integer.parseInt(isDone) == 1), eventNote, time);
+
         default:
             throw new IllegalArgumentException("Unknown task type: " + taskType);
         }

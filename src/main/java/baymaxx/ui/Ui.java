@@ -164,4 +164,15 @@ public class Ui {
     public String showLoadingSuccess() {
         return "Loaded saved expenses successfully.";
     }
+
+    /**
+     * Returns a message indicating a note has been added to the task
+     * @param tasks The collection of tasks
+     * @param taskIndex The index (1-based) of the task to add note
+     * @return Addition confirmation message string
+     */
+    public String printAddedNote(TaskCollection tasks, int taskIndex) {
+        String taskToAddNote = tasks.getTask(taskIndex - 1).toString();
+        return "Got it. I've added your notes to this task:\n" + taskToAddNote.toString();
+    }
 }
