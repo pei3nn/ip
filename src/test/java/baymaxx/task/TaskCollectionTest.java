@@ -10,7 +10,7 @@ public class TaskCollectionTest {
     @Test
     public void testAddTask() {
         TaskCollection tasks = new TaskCollection();
-        TodoTask t1 = new TodoTask("join sports club", true);
+        TodoTask t1 = new TodoTask("join sports club", true, "");
         tasks.addTask(t1);
 
         // Convert tasks to string for comparison
@@ -25,8 +25,8 @@ public class TaskCollectionTest {
     @Test
     public void testDeleteTask() {
         TaskCollection tasks = new TaskCollection();
-        TodoTask t1 = new TodoTask("join sports club", true);
-        TodoTask t2 = new TodoTask("read book", false);
+        TodoTask t1 = new TodoTask("join sports club", true, "");
+        TodoTask t2 = new TodoTask("read book", false, "Harry Potter");
         tasks.addTask(t1);
         tasks.addTask(t2);
 
@@ -37,7 +37,7 @@ public class TaskCollectionTest {
         List<String> actual = tasks.getAllTasks().stream()
                 .map(Task::toString)
                 .toList();
-        List<String> expected = List.of("[T][ ] read book");
+        List<String> expected = List.of("[T][ ] read book {Harry Potter}");
 
         assertEquals(expected, actual);
     }

@@ -7,18 +7,18 @@ package baymaxx.task;
  * Stores the description, completion status, and additional event information.
  */
 public class EventTask extends Task {
-        private String arg;
+        private String timeOfTask;
 
         /**
          * Constructs an EventTask.
          * 
          * @param description Description of the event task
          * @param isDone      Completion status of the task
-         * @param arg         Event details in "command1 time1/command2 time2" format
+         * @param timeOfTask         Event details in "command1 time1/command2 time2" format
          */
-        public EventTask(String description, boolean isDone, String arg) {
-                super(description, isDone);
-                this.arg = arg;
+        public EventTask(String description, boolean isDone, String note, String timeOfTask) {
+                super(description, isDone, note);
+                this.timeOfTask = timeOfTask;
         }
 
         /**
@@ -28,12 +28,13 @@ public class EventTask extends Task {
          */
         @Override
         public String toString() {
-                return "[E]" + super.toString() + "(" + formatEvent() + ")";
+                return "[E]" + super.toString() + "(" + formatEvent() + ")"
+                        + (getNote().equals("") ? "" : " {" + getNote() + "}");
         }
 
         private String formatEvent() {
-                assert arg != null : "Event argument should not be null";
-                String[] timeParts = arg.split("/", 2);
+                assert timeOfTask != null : "Event argument should not be null";
+                String[] timeParts = timeOfTask.split("/", 2);
                 assert timeParts.length >= 1 : "Event argument should contain at least one '/' separator";
 
                 String from = timeParts[0];
@@ -58,6 +59,6 @@ public class EventTask extends Task {
          */
         @Override
         public String toSaveFormatString() {
-                return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + arg;
+                return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + timeOfTask + " | " + getNote();
         }
 }
