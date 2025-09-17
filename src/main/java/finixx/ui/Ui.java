@@ -1,16 +1,16 @@
-package baymaxx.ui;
+package finixx.ui;
 
-import baymaxx.task.DeadlineTask;
-import baymaxx.task.EventTask;
-import baymaxx.task.Task;
-import baymaxx.task.TaskCollection;
-import baymaxx.task.TodoTask;
+import finixx.task.DeadlineTask;
+import finixx.task.EventTask;
+import finixx.task.Task;
+import finixx.task.TaskCollection;
+import finixx.task.TodoTask;
 
 import java.io.IOException;
 import java.util.List;
 
 /**
- * Handles all user interface (UI) interactions for baymaxx.Baymaxx.
+ * Handles all user interface (UI) interactions for Finixx.
  * This includes printing greetings, task lists, messages, and error notifications.
  */
 public class Ui {
@@ -20,7 +20,7 @@ public class Ui {
      * @return Greeting string
      */
     public static String printGreeting() {
-        String Greeting = "Hi! I'm Baymaxx (●─●)\n"
+        String Greeting = "Hi! I'm Finixx \n"
                 + "Your personal chatbot companion\n"
                 + "What can I do for you today?\n";
         return Greeting;
@@ -40,7 +40,7 @@ public class Ui {
      * @return Goodbye string
      */
     public String printGoodbye() {
-        return "Goodbye. BALALALALA!";
+        return "Goodbye. Hope to see you again!";
     }
 
     /**

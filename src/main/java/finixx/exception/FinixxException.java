@@ -1,16 +1,16 @@
-package baymaxx.exception;
+package finixx.exception;
 
 /**
- * Custom exception class for Baymaxx application errors.
+ * Custom exception class for Finixx application errors.
  * Used to signal specific issues encountered during execution.
  */
-public class BaymaxxException extends Exception {
+public class FinixxException extends Exception {
 
     /**
-     * Constructs a BaymaxxException with a specified error message.
+     * Constructs a FinixxException with a specified error message.
      * @param message The detail message describing the exception
      */
-    public BaymaxxException(String message) {
+    public FinixxException(String message) {
         super(message);
     }
 

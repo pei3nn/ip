@@ -1,4 +1,4 @@
-package baymaxx.task;
+package finixx.task;
 
 /**
  * Represents a generic task with a description and completion status.

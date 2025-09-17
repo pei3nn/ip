@@ -1,8 +1,8 @@
-package baymaxx.gui;
+package finixx.gui;
 
-import baymaxx.Baymaxx;
+import finixx.Finixx;
+import finixx.ui.Ui;
 
-import baymaxx.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -24,22 +24,22 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Baymaxx baymaxx;
+    private Finixx finixx;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image baymaxxImage = new Image(this.getClass().getResourceAsStream("/images/DaBaymaxx.png"));
+    private Image finixxImage = new Image(this.getClass().getResourceAsStream("/images/DaFinixx.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Baymaxx instance */
-    public void setBaymaxx(Baymaxx d) {
-        baymaxx = d;
+    /** Injects the Finixx instance */
+    public void setFinixx(Finixx d) {
+        finixx = d;
         String botGreeting = Ui.printGreeting();
         dialogContainer.getChildren().addAll(
-                DialogBox.getBaymaxxDialog(botGreeting, baymaxxImage)
+                DialogBox.getFinixxDialog(botGreeting, finixxImage)
         );
     }
 
@@ -50,10 +50,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = baymaxx.getResponse(input);
+        String response = finixx.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBaymaxxDialog(response, baymaxxImage)
+                DialogBox.getFinixxDialog(response, finixxImage)
         );
         userInput.clear();
     }

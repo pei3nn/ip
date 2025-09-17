@@ -1,13 +1,13 @@
-package baymaxx.parser;
+package finixx.parser;
 
-import baymaxx.exception.BaymaxxException;
-import baymaxx.storage.Storage;
-import baymaxx.task.DeadlineTask;
-import baymaxx.task.EventTask;
-import baymaxx.task.Task;
-import baymaxx.task.TaskCollection;
-import baymaxx.task.TodoTask;
-import baymaxx.ui.Ui;
+import finixx.exception.FinixxException;
+import finixx.storage.Storage;
+import finixx.task.DeadlineTask;
+import finixx.task.EventTask;
+import finixx.task.Task;
+import finixx.task.TaskCollection;
+import finixx.task.TodoTask;
+import finixx.ui.Ui;
 
 import java.util.List;
 
@@ -140,10 +140,10 @@ public class Parser {
 
             case UNKNOWN:
             default:
-                throw new BaymaxxException("Sorry... I don't understand that command.");
+                throw new FinixxException("Sorry... I don't understand that command.");
             }
 
-        } catch (BaymaxxException e) {
+        } catch (FinixxException e) {
             return e.printMessage();
         }
     }
@@ -166,36 +166,36 @@ public class Parser {
         }
     }
 
-    private static void validateTaskIndex(String arg, TaskCollection tasks) throws BaymaxxException {
+    private static void validateTaskIndex(String arg, TaskCollection tasks) throws FinixxException {
         assert !arg.equals("") : "task number to be marked should not be empty!";
         if (!isInteger(arg)) {
-            throw new BaymaxxException("Oops! " + arg + " is NOT an integer.");
+            throw new FinixxException("Oops! " + arg + " is NOT an integer.");
         } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
-            throw new BaymaxxException("Oops! There is no such task number: " + arg);
+            throw new FinixxException("Oops! There is no such task number: " + arg);
         }
     }
 
-    private static TodoTask createTodoTask(String arg) throws BaymaxxException {
+    private static TodoTask createTodoTask(String arg) throws FinixxException {
         String[] argParts = arg.split(" \\| ", 2);
         String description = argParts[0];
         String notes = (argParts.length > 1) ? argParts[1] : "";
 
         if (description.isEmpty()) {
-            throw new BaymaxxException("Oh no! you don't have a description for todo");
+            throw new FinixxException("Oh no! you don't have a description for todo");
         }
 
         return new TodoTask(description, false, notes);
     }
 
     private static DeadlineTask createDeadlineTask(String arg)
-            throws BaymaxxException {
+            throws FinixxException {
 
         String[] argParts = arg.split(" \\| ", 2);
         String details = argParts[0];
         String notes = (argParts.length > 1) ? argParts[1] : "";
 
         if (details.isEmpty()) {
-            throw new BaymaxxException("Oh no! you don't have a description for your task!");
+            throw new FinixxException("Oh no! you don't have a description for your task!");
         }
 
         String[] detailParts = details.split("/", 2);
@@ -203,21 +203,21 @@ public class Parser {
         String deadline = (detailParts.length > 1) ? detailParts[1] : "";
 
         if (deadline.isEmpty()) {
-            throw new BaymaxxException("Oh no! you don't have a deadline for your task!");
+            throw new FinixxException("Oh no! you don't have a deadline for your task!");
         }
 
         return new DeadlineTask(description, false, notes, deadline);
     }
 
-    private static EventTask createEventTask(String arg) throws BaymaxxException {
+    private static EventTask createEventTask(String arg) throws FinixxException {
         String[] argParts = arg.split(" \\| ", 2);
         String details = argParts[0];
         String notes = (argParts.length > 1) ? argParts[1] : "";
 
         if (details.isEmpty()) {
-            throw new BaymaxxException("Oh no! you don't have a description for your task!");
+            throw new FinixxException("Oh no! you don't have a description for your task!");
         } else if (!details.contains("/")) {
-            throw new BaymaxxException("Oh no! you don't have a time for your task!");
+            throw new FinixxException("Oh no! you don't have a time for your task!");
         }
 
         String[] detailParts = details.split("/", 2);

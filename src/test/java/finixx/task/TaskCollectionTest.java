@@ -1,4 +1,4 @@
-package baymaxx.task;
+package finixx.task;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package baymaxx.task;
+package finixx.task;
 
 /**
  * Represents a simple to-do task without a specific deadline or event time.
