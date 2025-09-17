@@ -1,4 +1,4 @@
-package baymaxx.task;
+package finixx.task;
 
 import java.util.ArrayList;
 import java.util.List;

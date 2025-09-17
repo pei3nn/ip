@@ -1,4 +1,4 @@
-package baymaxx.gui;
+package finixx.gui;
 
 import javafx.application.Application;
 

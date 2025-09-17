@@ -1,4 +1,4 @@
-package baymaxx.task;
+package finixx.task;
 
 /**
  * Represents a task that occurs at a specific time or event.

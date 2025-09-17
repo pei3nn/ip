@@ -44,11 +44,11 @@ dependencies {
 }
 
 application {
-    mainClass.set("baymaxx.gui.Launcher")
+    mainClass.set("finixx.gui.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "Baymaxx"
+    archiveBaseName = "Finixx"
     archiveClassifier = null
 }
 

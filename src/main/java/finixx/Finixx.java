@@ -1,28 +1,28 @@
-package baymaxx;
+package finixx;
 
-import baymaxx.parser.Parser;
-import baymaxx.storage.Storage;
-import baymaxx.task.TaskCollection;
-import baymaxx.ui.Ui;
+import finixx.parser.Parser;
+import finixx.storage.Storage;
+import finixx.task.TaskCollection;
+import finixx.ui.Ui;
 
 import java.io.IOException;
 
 /**
- * The main class for the Baymaxx chatbot application.
+ * The main class for the Finixx chatbot application.
  * Handles initialization of storage, task collection, and user interface.
  */
-public class Baymaxx {
+public class Finixx {
     private Storage storage;
     private TaskCollection tasks;
     private Ui ui;
 
     /**
-     * Constructs a Baymaxx instance with the specified file path for storage.
+     * Constructs a Finixx instance with the specified file path for storage.
      * Initializes the UI, storage, and loads tasks from the file.
      * 
      * @param filePath Path to the storage file
      */
-    public Baymaxx(String filePath) {
+    public Finixx(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = loadsTaskFromStorage(storage);
