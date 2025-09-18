@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Finixx using FXML.
  */
 public class Main extends Application {
 
@@ -25,7 +25,10 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setTitle("Finixx");
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setFinixx(finixx);  // inject the Duke instance
+            stage.setMinHeight(220);
+            stage.setMinWidth(800);
+            stage.setMaxWidth(800);
+            fxmlLoader.<MainWindow>getController().setFinixx(finixx);  // inject the Finixx instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
