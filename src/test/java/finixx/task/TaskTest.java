@@ -21,14 +21,14 @@ public class TaskTest {
 
     @Test
     public void testMarkAsNotDone_state() {
-        DeadlineTask d = new DeadlineTask("submit assignment ", true, "CS2103T", "by 2025-10-30");
+        DeadlineTask d = new DeadlineTask("submit assignment", true, "CS2103T", "2025-10-30");
         d.markAsNotDone();
         assertEquals(false, d.isDone());
     }
 
     @Test
     public void testMarkAsNotDone_string() {
-        DeadlineTask d = new DeadlineTask("submit assignment ", true, "CS2103T", "by 2025-10-30");
+        DeadlineTask d = new DeadlineTask("submit assignment", true, "CS2103T", "2025-10-30");
         d.markAsNotDone();
         assertEquals("[D][ ] submit assignment (by: Oct 30 2025) {CS2103T}", d.toString());
     }

@@ -41,4 +41,25 @@ public class TaskCollectionTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testAddDifferentTaskTypes() {
+        TaskCollection tasks = new TaskCollection();
+        tasks.addTask(new TodoTask("exercise", false, ""));
+        tasks.addTask(new DeadlineTask("submit report", false, "", "2025-12-01"));
+        tasks.addTask(new EventTask("meeting", false, "office", "2pm", "4pm"));
+
+        List<String> actual = tasks.getAllTasks().stream()
+                .map(Task::toString)
+                .toList();
+
+        List<String> expected = List.of(
+                "[T][ ] exercise",
+                "[D][ ] submit report (by: Dec 1 2025)",
+                "[E][ ] meeting (from: 2pm to: 4pm) {office}"
+        );
+
+        assertEquals(expected, actual);
+        assertEquals(3, tasks.getSize());
+    }
 }
