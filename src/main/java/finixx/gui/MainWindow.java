@@ -9,6 +9,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
@@ -26,12 +27,20 @@ public class MainWindow extends AnchorPane {
 
     private Finixx finixx;
 
+    // Icon Credit:
+    // "Young" icons created by Freepik - Flaticon
+    // https://www.flaticon.com/free-icons/young
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+
+    // Icon Credit:
+    // "Phoenix" icons created by Freepik - Flaticon
+    // https://www.flaticon.com/free-icons/phoenix
     private Image finixxImage = new Image(this.getClass().getResourceAsStream("/images/DaFinixx.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        VBox.setVgrow(dialogContainer, Priority.ALWAYS);
     }
 
     /** Injects the Finixx instance */
@@ -44,7 +53,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Finixx's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
