@@ -21,8 +21,17 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, boolean isDone, String note, String deadline) {
         super(description, isDone, note);
-        assert deadline != null && !deadline.equals("") : "Deadline cannot be null or empty";
+        assert deadline != null && !deadline.isEmpty() : "Deadline cannot be null or empty";
         this.deadline = deadline;
+    }
+
+    /**
+     * Returns the deadline of this task.
+     *
+     * @return the deadline as a string
+     */
+    public String getDeadline() {
+        return this.deadline;
     }
 
     /**
@@ -32,20 +41,13 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(" + formatDeadline() + ")"
-                + (getNote().equals("") ? "" : " {" + getNote() + "}");
+        return "[D]" + super.toString() + " (by: " + formatDeadline() + ")"
+                + (getNote().isEmpty() ? "" : " <" + getNote() + ">");
     }
 
     private String formatDeadline() {
-        String[] deadlineParts = deadline.split(" ", 2);
-
-        assert deadlineParts.length == 2 : "Deadline should contain type and date separated by a space";
-        String deadlineType = deadlineParts[0];
-        String deadlineDate = deadlineParts[1];
-
-        LocalDate parsedDate = LocalDate.parse(deadlineDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String formattedDate = parsedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        return deadlineType + ": " + formattedDate;
+        LocalDate parsedDate = LocalDate.parse(deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return parsedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     /**

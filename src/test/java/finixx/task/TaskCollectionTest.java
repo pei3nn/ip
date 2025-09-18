@@ -13,7 +13,6 @@ public class TaskCollectionTest {
         TodoTask t1 = new TodoTask("join sports club", true, "");
         tasks.addTask(t1);
 
-        // Convert tasks to string for comparison
         List<String> actual = tasks.getAllTasks().stream()
                 .map(Task::toString)
                 .toList();
@@ -30,14 +29,12 @@ public class TaskCollectionTest {
         tasks.addTask(t1);
         tasks.addTask(t2);
 
-        // Remove the first task
-        tasks.removeTask(0); // assuming removeTask(int index) exists
+        tasks.removeTask(0);
 
-        // Convert remaining tasks to string
         List<String> actual = tasks.getAllTasks().stream()
                 .map(Task::toString)
                 .toList();
-        List<String> expected = List.of("[T][ ] read book {Harry Potter}");
+        List<String> expected = List.of("[T][ ] read book <Harry Potter>");
 
         assertEquals(expected, actual);
     }
@@ -56,7 +53,7 @@ public class TaskCollectionTest {
         List<String> expected = List.of(
                 "[T][ ] exercise",
                 "[D][ ] submit report (by: Dec 1 2025)",
-                "[E][ ] meeting (from: 2pm to: 4pm) {office}"
+                "[E][ ] meeting (from: 2pm to: 4pm) <office>"
         );
 
         assertEquals(expected, actual);

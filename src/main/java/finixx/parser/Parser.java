@@ -153,7 +153,7 @@ public class Parser {
 
             case UNKNOWN:
             default:
-                throw new FinixxException("Oops! That’s not in my to-do spellbook!\n" +
+                throw new FinixxException("Oops! That’s not in my to-do spellbook!" +
                         "\nHere are the commands I understand: list, mark, unmark, delete, todo, deadline, event, find, note, bye");
             }
 

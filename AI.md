@@ -10,6 +10,7 @@
 - Generated JUnit tests for TaskCollection and Parser using AI assistance to cover edge cases.
 - Minor refactoring and code cleanup guided by AI suggestions from ChatGPT and Copilot.
 - Created JavaDoc comments for classes and methods with help from Copilot auto-suggestions.
+- Generated code snippets for improving GUI components and layout using AI prompts.
 
 ## Observations
 - AI helped quickly generate repetitive code like tests which could be mundane and prone to human error.

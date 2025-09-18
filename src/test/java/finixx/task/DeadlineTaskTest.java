@@ -26,7 +26,7 @@ public class DeadlineTaskTest {
     @Test
     public void testToString_undoneTask() {
         DeadlineTask t = new DeadlineTask("submit assignment", false, "CS2103T","2025-10-30");
-        assertEquals("[D][ ] submit assignment (by: Oct 30 2025) {CS2103T}", t.toString());
+        assertEquals("[D][ ] submit assignment (by: Oct 30 2025) <CS2103T>", t.toString());
     }
 
     @Test

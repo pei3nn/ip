@@ -21,7 +21,7 @@ public class TodoTask extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString()
-                + (getNote().equals("") ? "" : " {" + getNote() + "}");
+                + (getNote().equals("") ? "" : " <" + getNote() + ">");
     }
 
     /**

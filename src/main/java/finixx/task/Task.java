@@ -104,7 +104,7 @@ public class Task {
      */
     public static Task fromSaveFormat(String line) {
         assert line != null : "Input line should not be null";
-        String[] parts = line.trim().split(" \\| ");
+        String[] parts = line.split("\\s*\\|\\s*");
 
         assert parts.length >= 3 : "Save format line should have at least 3 parts";
         String taskType = parts[0];
@@ -122,9 +122,10 @@ public class Task {
             return new DeadlineTask(desc, (Integer.parseInt(isDone) ==1), deadlineNote, by);
 
         case ("E"): // E | 0 | proj meeting  | from Mon 2pm /to 5pm | CS2103T
-            String time = parts[3];
-            String eventNote = parts.length > 4 ?parts[4] : "";
-            return new EventTask(desc, (Integer.parseInt(isDone) == 1), eventNote, time);
+            String startTime = parts[3];
+            String endTime = parts[4];
+            String eventNote = parts.length > 5 ?parts[5] : "";
+            return new EventTask(desc, (Integer.parseInt(isDone) == 1), eventNote, startTime, endTime);
 
         default:
             throw new IllegalArgumentException("Unknown task type: " + taskType);

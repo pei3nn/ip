@@ -59,7 +59,7 @@ public class ParserTest {
         String input = "todo   ";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("Oh no! you must have a description"));
+        assertTrue(response.contains("Ah! You need to give your task a proper description so it can rise from the ashes!"));
         assertEquals(0, tasks.getSize());
     }
 
@@ -84,7 +84,7 @@ public class ParserTest {
         String input = "deadline return book";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("Invalid deadline format"));
+        assertTrue(response.contains("Whoops! your deadline spell didn't work"));
         assertEquals(0, tasks.getSize());
     }
 
@@ -94,7 +94,7 @@ public class ParserTest {
         String input = "deadline return book /by 2000-01-01";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("Deadline cannot be before today"));
+        assertTrue(response.contains("You can’t set a deadline before today. Let’s aim for the future!"));
         assertEquals(0, tasks.getSize());
     }
 
@@ -106,8 +106,8 @@ public class ParserTest {
         String response1 = Parser.parse(input1, ui, tasks, storage);
         String response2 = Parser.parse(input2, ui, tasks, storage);
 
-        assertTrue(response1.contains("Oh no! you must have a description for your task!"));
-        assertTrue(response2.contains("Oh no! you must have a description for your task!"));
+        assertTrue(response1.contains("Ah! You need to give your task a proper description so it can rise from the ashes!"));
+        assertTrue(response2.contains("Ah! You need to give your task a proper description so it can rise from the ashes!"));
         assertEquals(0, tasks.getSize());
     }
 
@@ -117,7 +117,7 @@ public class ParserTest {
         String input = "deadline return book /by sunday";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("Deadline must be in yyyy-MM-dd format!"));
+        assertTrue(response.contains("Whoops! The deadline spell didn’t take flight — use yyyy-MM-dd format!"));
         assertEquals(0, tasks.getSize());
     }
 
@@ -146,8 +146,8 @@ public class ParserTest {
         String response1 = Parser.parse(input1, ui, tasks, storage);
         String response2 = Parser.parse(input2, ui, tasks, storage);
 
-        assertTrue(response1.contains("End time cannot be empty!"));
-        assertTrue(response2.contains("Start time cannot be empty!"));
+        assertTrue(response1.contains("Oops! Your event needs an end time to complete its fiery journey"));
+        assertTrue(response2.contains("Oops! Your event needs a start time to take flight"));
         assertEquals(0, tasks.getSize());
     }
 
@@ -160,8 +160,8 @@ public class ParserTest {
         String response1 = Parser.parse(input1, ui, tasks, storage);
         String response2 = Parser.parse(input2, ui, tasks, storage);
 
-        assertTrue(response1.contains("Invalid event format"));
-        assertTrue(response2.contains("Invalid event format"));
+        assertTrue(response1.contains("Whoops! your deadline spell didn't work. Use: event <description> /from <start time> /to <end time>"));
+        assertTrue(response2.contains("Whoops! your deadline spell didn't work. Use: event <description> /from <start time> /to <end time>"));
         assertEquals(0, tasks.getSize());
     }
 
@@ -174,8 +174,8 @@ public class ParserTest {
         String response1 = Parser.parse(input1, ui, tasks, storage);
         String response2 = Parser.parse(input2, ui, tasks, storage);
 
-        assertTrue(response1.contains("Oh no! you must have a description for your task!"));
-        assertTrue(response2.contains("Oh no! you must have a description for your task!"));
+        assertTrue(response1.contains("Ah! You need to give your task a proper description so it can rise from the ashes!"));
+        assertTrue(response2.contains("Ah! You need to give your task a proper description so it can rise from the ashes!"));
         assertEquals(0, tasks.getSize());
     }
 
@@ -196,7 +196,7 @@ public class ParserTest {
         String input = "mark 10";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("no such task number"));
+        assertTrue(response.contains("Try a number that actually exists!"));
         assertFalse(tasks.getTask(0).isDone());
     }
 
@@ -206,7 +206,7 @@ public class ParserTest {
         String input = "mark abc";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("is NOT an integer"));
+        assertTrue(response.contains("is not an integer — I need a proper task number!"));
         assertFalse(tasks.getTask(0).isDone());
     }
 
@@ -229,7 +229,7 @@ public class ParserTest {
         String input = "unmark 10";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("no such task number"));
+        assertTrue(response.contains("Try a number that actually exists!"));
         assertTrue(tasks.getTask(0).isDone());
     }
 
@@ -240,7 +240,7 @@ public class ParserTest {
         String input = "unmark abc";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("is NOT an integer"));
+        assertTrue(response.contains("is not an integer — I need a proper task number!"));
         assertTrue(tasks.getTask(0).isDone());
     }
 
@@ -262,7 +262,7 @@ public class ParserTest {
         String input = "delete 5";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("no such task number"));
+        assertTrue(response.contains("Try a number that actually exists!"));
         assertEquals(3, tasks.getSize());
     }
 
@@ -272,7 +272,7 @@ public class ParserTest {
         String input = "delete abc";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("is NOT an integer"));
+        assertTrue(response.contains("is not an integer — I need a proper task number!"));
         assertEquals(3, tasks.getSize());
     }
 
@@ -293,7 +293,7 @@ public class ParserTest {
         String input = "find homework";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("Here are the matching tasks in your list"));
+        assertTrue(response.contains("Your matching tasks have soared into view"));
         assertFalse(response.contains("read book"));
     }
 
@@ -324,7 +324,7 @@ public class ParserTest {
         String input = "note 5 Some note";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("no such task number"));
+        assertTrue(response.contains("Try a number that actually exists!"));
         assertEquals("", tasks.getTask(0).getNote());
         assertEquals("", tasks.getTask(1).getNote());
     }
@@ -335,7 +335,7 @@ public class ParserTest {
         String input = "note abc Some note";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("is NOT an integer"));
+        assertTrue(response.contains("is not an integer — I need a proper task number!"));
         assertEquals("", tasks.getTask(0).getNote());
         assertEquals("", tasks.getTask(1).getNote());
     }
@@ -357,7 +357,7 @@ public class ParserTest {
         String input = "hi";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("I don't understand that command"));
+        assertTrue(response.contains("Oops! That’s not in my to-do spellbook!"));
         assertEquals(0, tasks.getSize());
     }
 }

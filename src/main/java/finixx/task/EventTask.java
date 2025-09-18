@@ -7,18 +7,21 @@ package finixx.task;
  * Stores the description, completion status, and additional event information.
  */
 public class EventTask extends Task {
-        private String timeOfTask;
+        private String start;
+        private String end;
 
         /**
          * Constructs an EventTask.
          * 
          * @param description Description of the event task
          * @param isDone      Completion status of the task
-         * @param timeOfTask         Event details in "command1 time1/command2 time2" format
+         * @param start       Start time of the event
+         * @param end         End time of the event
          */
-        public EventTask(String description, boolean isDone, String note, String timeOfTask) {
+        public EventTask(String description, boolean isDone, String note, String start, String end) {
                 super(description, isDone, note);
-                this.timeOfTask = timeOfTask;
+                this.start = start;
+                this.end = end;
         }
 
         /**
@@ -28,28 +31,26 @@ public class EventTask extends Task {
          */
         @Override
         public String toString() {
-                return "[E]" + super.toString() + "(" + formatEvent() + ")"
-                        + (getNote().equals("") ? "" : " {" + getNote() + "}");
+                return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")"
+                        + (getNote().isEmpty() ? "" : " <" + getNote() + ">");
         }
 
-        private String formatEvent() {
-                assert timeOfTask != null : "Event argument should not be null";
-                String[] timeParts = timeOfTask.split("/", 2);
-                assert timeParts.length >= 1 : "Event argument should contain at least one '/' separator";
+        /**
+         * Returns the start time of this event.
+         *
+         * @return the start time as a string
+         */
+        public String getStart() {
+                return this.start;
+        }
 
-                String from = timeParts[0];
-                String[] fromParts = from.split(" ", 2);
-                assert fromParts.length == 2 : "From part should contain command and time separated by a space";
-                String fromCommand = fromParts[0];
-                String fromTime = fromParts[1];
-
-                String to = (timeParts.length > 1) ? timeParts[1] : "";
-                String[] toParts = to.split(" ", 2);
-                assert toParts.length == 2 : "To part should contain command and time separated by a space";
-                String toCommand = toParts[0];
-                String toTime = toParts[1];
-
-                return fromCommand + ": " + fromTime + " " + toCommand + ": " + toTime;
+        /**
+         * Returns the end time of this event.
+         *
+         * @return the end time as a string
+         */
+        public String getEnd() {
+                return this.end;
         }
 
         /**
@@ -59,6 +60,7 @@ public class EventTask extends Task {
          */
         @Override
         public String toSaveFormatString() {
-                return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + timeOfTask + " | " + getNote();
+                return "E | " + (isDone() ? "1" : "0") + " | "
+                        + getDescription() + " | " + start + " | " + end + " | " + getNote();
         }
 }

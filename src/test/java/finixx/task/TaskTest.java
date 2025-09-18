@@ -30,6 +30,6 @@ public class TaskTest {
     public void testMarkAsNotDone_string() {
         DeadlineTask d = new DeadlineTask("submit assignment", true, "CS2103T", "2025-10-30");
         d.markAsNotDone();
-        assertEquals("[D][ ] submit assignment (by: Oct 30 2025) {CS2103T}", d.toString());
+        assertEquals("[D][ ] submit assignment (by: Oct 30 2025) <CS2103T>", d.toString());
     }
 }
