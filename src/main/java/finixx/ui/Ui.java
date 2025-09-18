@@ -20,9 +20,9 @@ public class Ui {
      * @return Greeting string
      */
     public static String printGreeting() {
-        String Greeting = "Hi! I'm Finixx \n"
-                + "Your personal chatbot companion\n"
-                + "What can I do for you today?\n";
+        String Greeting = "Hello there! I'm Finixx 🔥\n"
+                + "Your personal productivity companion\n"
+                + "Let's fly through your tasks together!!";
         return Greeting;
     }
 
@@ -32,7 +32,7 @@ public class Ui {
      * @return Error message string
      */
     public static String printErrorSavingTask(IOException e) {
-        return "Error saving tasks: " + e.getMessage();
+        return "Yikes! Your fiery tasks hit a snag while saving: " + e.getMessage();
     }
 
     /**
@@ -40,7 +40,7 @@ public class Ui {
      * @return Goodbye string
      */
     public String printGoodbye() {
-        return "Goodbye. Hope to see you again!";
+        return "Goodbye! May your productivity rise from the ashes tomorrow! 🔥";
     }
 
     /**
@@ -53,7 +53,7 @@ public class Ui {
         for (int i = 0; i < tasks.getSize(); i++) {
             listOfTasks.append((i + 1)).append(". ").append(tasks.getTask(i).toString()).append("\n");
         }
-        return "Here are the tasks in your list:\n" + listOfTasks;
+        return "Here’s your task list — let’s soar through them together!\n" + listOfTasks;
     }
 
     /**
@@ -64,7 +64,8 @@ public class Ui {
      */
     public String printMarked(TaskCollection tasks, int taskIndex) {
         String markedTask = tasks.getTask(taskIndex - 1).toString();
-        return "Nice! I've marked this task as done:\n" + markedTask;
+        return "Awesome! I've marked this task as done:\n" + markedTask +
+                "\nKeep those flames of productivity burning!";
     }
 
     /**
@@ -75,7 +76,8 @@ public class Ui {
      */
     public String printUnmarked(TaskCollection tasks, int taskIndex) {
         String unmarkedTask = tasks.getTask(taskIndex - 1).toString();
-        return "OK, I've marked this task as not done yet:\n" + unmarkedTask;
+        return "Ah, I've marked this task as not done yet:\n" + unmarkedTask +
+                "\nIt’s alive… for now. Let's reignite that spark and get it done!";
     }
 
     /**
@@ -85,9 +87,10 @@ public class Ui {
      * @return Deletion confirmation message string
      */
     public String printDeleted(TaskCollection tasks, int taskIndex) {
-        return "Noted. I've removed this task:\n"
-                + tasks.getTask(taskIndex - 1).toString() + "\n"
-                + "Now you have " + (tasks.getSize() - 1) + " tasks in the list.";
+        return "Poof! this task is now removed:\n"
+                + tasks.getTask(taskIndex - 1).toString() +
+                "\nAnother obstacle out of your way — your productivity wings just got stronger!" +
+                "\nNow you have " + (tasks.getSize() - 1) + " tasks in the list.";
     }
 
     /**
@@ -98,8 +101,9 @@ public class Ui {
      */
     public String printAddedTodo(TaskCollection tasks, TodoTask t) {
         return "Got it. I've added this task:\n"
-                + t.toString() + "\n"
-                + "Now you have " + tasks.getSize() + " tasks in the list.";
+                + t.toString()
+                + "\nNow you have " + tasks.getSize() + " tasks in the list."
+                + "\nKeep soaring — your tasks won’t complete themselves!";
     }
 
     /**
@@ -110,8 +114,9 @@ public class Ui {
      */
     public String printAddedDeadline(TaskCollection tasks, DeadlineTask d) {
         return "Got it. I've added this task:\n"
-                + d.toString() + "\n"
-                + "Now you have " + tasks.getSize() + " tasks in the list.";
+                + d.toString()
+                + "\nNow you have " + tasks.getSize() + " tasks in the list."
+                + "\nKeep soaring — your tasks won’t complete themselves!";
     }
 
     /**
@@ -122,8 +127,9 @@ public class Ui {
      */
     public String printAddedEvent(TaskCollection tasks, EventTask e) {
         return "Got it. I've added this task:\n"
-                + e.toString() + "\n"
-                + "Now you have " + tasks.getSize() + " tasks in the list.";
+                + e.toString()
+                + "\nNow you have " + tasks.getSize() + " tasks in the list."
+                + "\nKeep soaring — your tasks won’t complete themselves!";
     }
 
     /**
@@ -151,18 +157,18 @@ public class Ui {
     public String printFindPossible(List<Task> matchingTasks) {
         StringBuilder matchedTasksList = new StringBuilder();
         for (int i = 0; i < matchingTasks.size(); i++) {
-            matchedTasksList.append((i + 1)).append(".").append(matchingTasks.get(i));
+            matchedTasksList.append((i + 1)).append(".").append(matchingTasks.get(i)).append("\n");;
         }
-        return "Here are the matching tasks in your list:\n"
+        return "Your matching tasks have soared into view:\n"
                 + matchedTasksList;
     }
 
     /**
-     * Returns a success message when loading saved expenses succeeds.
+     * Returns a success message when loading saved tasks succeeds.
      * @return Loading success message string
      */
     public String showLoadingSuccess() {
-        return "Loaded saved expenses successfully.";
+        return "Loaded saved tasks successfully.";
     }
 
     /**
@@ -173,6 +179,7 @@ public class Ui {
      */
     public String printAddedNote(TaskCollection tasks, int taskIndex) {
         String taskToAddNote = tasks.getTask(taskIndex - 1).toString();
-        return "Got it. I've added your notes to this task:\n" + taskToAddNote.toString();
+        return "Got it. I've updated your notes to this task:\n" + taskToAddNote.toString()
+                + "\nYour tasks just got a fiery upgrade!";
     }
 }

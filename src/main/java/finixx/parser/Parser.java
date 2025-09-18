@@ -133,6 +133,9 @@ public class Parser {
                 return ui.printAddedEvent(tasks, e);
 
             case FIND:
+                if (arg.isEmpty()) {
+                    throw new FinixxException("Hmm… without a keyword, your hidden tasks stay lost in the ashes!");
+                }
                 List<Task> matchingTasks = tasks.findTasks(arg);
                 return ui.printFindPossible(matchingTasks);
 
@@ -150,22 +153,13 @@ public class Parser {
 
             case UNKNOWN:
             default:
-                throw new FinixxException("Sorry... I don't understand that command.\n" +
-                        "Possible Commands: list, mark, unmark, delete, todo, deadline, event, find, note, bye");
+                throw new FinixxException("Oops! That’s not in my to-do spellbook!\n" +
+                        "\nHere are the commands I understand: list, mark, unmark, delete, todo, deadline, event, find, note, bye");
             }
 
         } catch (FinixxException e) {
             return e.printMessage();
         }
-    }
-
-    private static String extractTaskIndex(String arg) {
-        String[] details = arg.split(" ", 2);
-        return details[0];
-    }
-
-    private static void addTaskNote(TaskCollection tasks, String taskIndex, String notes) {
-
     }
 
     private static boolean isInteger(String arg) {
@@ -179,22 +173,22 @@ public class Parser {
 
     private static void validateTaskIndex(String arg, TaskCollection tasks) throws FinixxException {
         if (arg.isEmpty()) {
-            throw new FinixxException("Oops! you must provide a task number!");
+            throw new FinixxException("Ah! I need a task number to ignite the flames of action!");
         }
         if (!isInteger(arg)) {
-            throw new FinixxException("Oops! " + arg + " is NOT an integer.");
+            throw new FinixxException("Ah! " + arg + " is not an integer — I need a proper task number!");
         } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
-            throw new FinixxException("Oops! There is no such task number: " + arg);
+            throw new FinixxException("Ah! There’s no task with number '" + arg + "'. Try a number that actually exists!");
         }
     }
 
     private static TodoTask createTodoTask(String arg) throws FinixxException {
         String[] argParts = arg.split("\\s*\\|\\s*", 2);
-        String description = argParts[0];
+        String description = argParts[0].trim();
         String notes = (argParts.length > 1) ? argParts[1] : "";
 
         if (description.isEmpty()) {
-            throw new FinixxException("Oh no! you must have a description for your task!");
+            throw new FinixxException("Ah! You need to give your task a proper description so it can rise from the ashes!");
         }
 
         return new TodoTask(description, false, notes);
@@ -208,11 +202,11 @@ public class Parser {
         String notes = (argParts.length > 1) ? argParts[1] : "";
 
         if (details.isEmpty()) {
-            throw new FinixxException("Oh no! you must have a description for your task!");
+            throw new FinixxException("Ah! You need to give your task a proper description so it can rise from the ashes!");
         }
 
         if (!details.contains("/by")) {
-            throw new FinixxException("Invalid deadline format. Use: deadline <description> /by <date>");
+            throw new FinixxException("Whoops! your deadline spell didn't work. Use: deadline <description> /by <date>");
         }
 
         String[] detailParts = details.split("\\s*/by\\s*", 2);
@@ -220,11 +214,11 @@ public class Parser {
         String deadline = (detailParts.length > 1) ? detailParts[1] : "";
 
         if (deadline.isEmpty()) {
-            throw new FinixxException("Oh no! you must have a deadline for your task!");
+            throw new FinixxException("Oh no! I can’t ignite a task without a deadline");
         }
 
         if (description.isEmpty()) {
-            throw new FinixxException("Oh no! you must have a description for your task!");
+            throw new FinixxException("Ah! You need to give your task a proper description so it can rise from the ashes!");
         }
 
         // Validate deadline format
@@ -233,12 +227,12 @@ public class Parser {
             LocalDate parsedDeadline = LocalDate.parse(deadline, formatter);
 
             if (parsedDeadline.isBefore(LocalDate.now())) {
-                throw new FinixxException("Deadline cannot be before today!");
+                throw new FinixxException("You can’t set a deadline before today. Let’s aim for the future!");
             }
 
             deadline = parsedDeadline.toString(); // normalized format
         } catch (DateTimeParseException e) {
-            throw new FinixxException("Deadline must be in yyyy-MM-dd format!");
+            throw new FinixxException("Whoops! The deadline spell didn’t take flight — use yyyy-MM-dd format!");
         }
 
         return new DeadlineTask(description, false, notes, deadline);
@@ -250,11 +244,11 @@ public class Parser {
         String notes = (argParts.length > 1) ? argParts[1].trim() : "";
 
         if (details.isEmpty()) {
-            throw new FinixxException("Oh no! you must have a description for your task!");
+            throw new FinixxException("Ah! You need to give your task a proper description so it can rise from the ashes!");
         }
 
         if (!details.contains("/from") || !details.contains("/to")) {
-            throw new FinixxException("Invalid event format. Use: event <description> /from <start time> /to <end time>");
+            throw new FinixxException("Whoops! your deadline spell didn't work. Use: event <description> /from <start time> /to <end time>");
         }
 
         try {
@@ -268,18 +262,18 @@ public class Parser {
 
             // Validate
             if (description.isEmpty()) {
-                throw new FinixxException("Oh no! you must have a description for your task!");
+                throw new FinixxException("Ah! You need to give your task a proper description so it can rise from the ashes!");
             }
             if (startTime.isEmpty()) {
-                throw new FinixxException("Start time cannot be empty!");
+                throw new FinixxException("Oops! Your event needs a start time to take flight");
             }
             if (endTime.isEmpty()) {
-                throw new FinixxException("End time cannot be empty!");
+                throw new FinixxException("Oops! Your event needs an end time to complete its fiery journey");
             }
 
             return new EventTask(description, false, notes, startTime, endTime);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new FinixxException("Invalid event format. Use: event <description> /from <start time> /to <end time>");
+            throw new FinixxException("Whoops! your deadline spell didn't work. Use: event <description> /from <start time> /to <end time>");
         }
     }
 }
