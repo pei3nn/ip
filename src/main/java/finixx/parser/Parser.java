@@ -217,7 +217,7 @@ public class Parser {
 
         if (!details.contains("/by")) {
             throw new FinixxException(
-                    "Whoops! your deadline spell didn't work. Use: deadline <description> /by <date>");
+                    "Whoops! your deadline spell didn't work. Use: deadline <description> /by <yyyy-MM-dd>");
         }
 
         String[] detailParts = details.split("\\s*/by\\s*", 2);

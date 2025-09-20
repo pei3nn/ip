@@ -63,7 +63,7 @@ public class Ui {
      * @return Goodbye string
      */
     public String printGoodbye() {
-        return "Goodbye! May your productivity rise from the ashes tomorrow! 🔥";
+        return "Goodbye! May your productivity rise from the ashes! 🔥";
     }
 
     /**
@@ -190,7 +190,7 @@ public class Ui {
     public String printFindPossible(List<Task> matchingTasks) {
         StringBuilder matchedTasksList = new StringBuilder();
         for (int i = 0; i < matchingTasks.size(); i++) {
-            matchedTasksList.append((i + 1)).append(".").append(matchingTasks.get(i)).append("\n");
+            matchedTasksList.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
             ;
         }
         return "Your matching tasks have soared into view:\n"
