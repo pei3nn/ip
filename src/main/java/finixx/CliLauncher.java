@@ -3,8 +3,9 @@ package finixx;
 import java.util.Scanner;
 
 /**
- * Simple CLI launcher for Finixx to support A-TextUiTesting.
- * This runs alongside the GUI version, but is only used for automated tests.
+ * The CLI launcher for the Finixx application.
+ * It initializes the Finixx instance and handles user input/output in the console.
+ * This class is intended for text-ui-test purposes.
  */
 public class CliLauncher {
     public static void main(String[] args) {
