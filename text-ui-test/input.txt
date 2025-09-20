@@ -1,7 +1,9 @@
-blah
-todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-mark 3
+todo read book
+deadline return book /by 2025-12-31
+event project meeting /from 2pm /to 4pm
 list
+mark 1
+unmark 1
+delete 3
+find book
 bye
