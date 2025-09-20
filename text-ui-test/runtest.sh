@@ -13,7 +13,7 @@ then
 fi
 
 # create an empty tasks file for testing
-> ./text-ui-test/data/test_tasks.txt
+> ../data/test_tasks.txt
 
 # compile the code into the bin folder, terminates if error occurred
 # shellcheck disable=SC2046

@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class CliLauncher {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Finixx finixx = new Finixx("text-ui-test/data/test_tasks.txt"); // use a test file
+        Finixx finixx = new Finixx("/data/test_tasks.txt"); // use a test file
         boolean isRunning = true;
 
         while (isRunning && sc.hasNextLine()) {
