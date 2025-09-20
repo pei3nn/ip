@@ -21,7 +21,7 @@ Finixx saves your tasks automatically, handles invalid inputs gracefully, and gu
 
 ---
 ## Command Format
-### Adding todos
+## Adding todos
 
 You can add a simple task without a specific deadline or event time using the `todo` command.  
 The description cannot be empty. Optionally, you can add a note separated by `|`.
@@ -37,7 +37,7 @@ Now you have 1 task in the list.
 Keep soaring -- your tasks won't complete themselves!
 ```
 
-### Adding deadlines
+## Adding deadlines
 
 You can add a task with a specific due date using the `deadline` command.  
 The description cannot be empty, and the date must be in `yyyy-MM-dd` format.
@@ -54,7 +54,7 @@ Now you have 2 tasks in the list.
 Keep soaring -- your tasks won't complete themselves!
 ```
 
-### Adding events
+## Adding events
 
 You can add a task with a start and end time using the `event` command.  
 You must provide a start time and an end time, and optionally a note.
@@ -70,7 +70,7 @@ Now you have 3 tasks in the list.
 Keep soaring -- your tasks won't complete themselves!
 ```
 
-### Listing tasks
+## Listing tasks
 
 You can list all your tasks using the `list` command.
 
@@ -83,7 +83,7 @@ Here are the tasks in your list:
 3. [E][ ] project meeting (from: 2pm to: 4pm) <discuss milestones>
 ``` 
 
-### Marking tasks as done
+## Marking tasks as done
 
 You can mark a task as done using the `mark` command followed by the task number.
 
@@ -97,7 +97,7 @@ Awesome! I've marked this task as done:
 Keep those flames of productivity burning!
 ```
 
-### Unmarking tasks as not done
+## Unmarking tasks as not done
 
 You can unmark a task as not done using the `unmark` command followed by the task number.
 
@@ -111,7 +111,7 @@ Ah, I've marked this task as not done yet:
 It's alive.. for now. Let's reignite that spark and get it done!
 ```
 
-### Deleting tasks
+## Deleting tasks
 
 You can delete a task from the list using the `delete` command followed by the task number.
 
@@ -126,7 +126,7 @@ Another obstacle out of your way -- your productivity wings just got stronger!
 Now you have 2 tasks in the list.
 ```
 
-### Finding tasks
+## Finding tasks
 
 You can find tasks containing a specific keyword using the `find` command.
 
@@ -139,7 +139,7 @@ Your matching tasks have soared into view:
 1. [T][ ] read book <chapter 1>
 ```
 
-### Adding notes to tasks
+## Adding notes to tasks
 
 You can add or update a note to an existing task using the `note` command followed by the task number and the note content.
 
@@ -153,7 +153,7 @@ Got it! I've updated your notes to this task:
 Your tasks just got a fiery upgrade!
 ```
 
-### Exiting the Program
+## Exiting the Program
 
 Type `bye` to receive a farewell message from Finixx.
 
@@ -207,16 +207,16 @@ This means you can learn how to use Finixx **just by chatting with it**.
 
 ## Command Summary
 
-| Command                                            | Description                    |
-|----------------------------------------------------|--------------------------------|
-| `todo <desc>                            \| <note>` | Add a todo task |
-| `deadline <desc> /by <YYYY-MM-DD>`                 | Add a deadline task            |
-| `event <desc> /from <start> /to <end>`             | Add an event                   |
-| `mark <task number>`                               | Mark a task as done            |
-| `unmark <task number>`                             | Mark a task as not done        |
-| `delete <task number>`                             | Delete a task                  |
-| `note <task number> <text>`                        | Add or update a note for a task |
-| `find <keyword>`                                   | Search tasks by keyword        |
+| Command                                          | Description                     |
+|--------------------------------------------------|---------------------------------|
+| `todo <desc> \| <note>`                          | Add a todo task                 |
+| `deadline <desc> /by <YYYY-MM-DD> \| <note>`     | Add a deadline task             |
+| `event <desc> /from <start> /to <end> \| <note>` | Add an event                    |
+| `mark <task number>`                             | Mark a task as done             |
+| `unmark <task number>`                           | Mark a task as not done         |
+| `delete <task number>`                           | Delete a task                   |
+| `note <task number> <text>`                      | Add or update a note for a task |
+| `find <keyword>`                                 | Search tasks by keyword         |
 
 ---
 
