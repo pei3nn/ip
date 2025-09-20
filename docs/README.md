@@ -20,7 +20,6 @@ Finixx saves your tasks automatically, handles invalid inputs gracefully, and gu
 6. When done, simply close the window—Finixx will save your tasks automatically.
 
 ---
-## Command Format
 ## Adding todos
 
 You can add a simple task without a specific deadline or event time using the `todo` command.  
