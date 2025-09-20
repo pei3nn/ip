@@ -10,18 +10,20 @@ import finixx.task.TodoTask;
 import finixx.ui.Ui;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
 /**
- * Parses user input and executes corresponding commands.
+ * The Parser class is responsible for interpreting user input commands and executing the corresponding actions.
+ * It supports various commands such as adding tasks, marking tasks as done, deleting tasks, and more.
+ * The class interacts with the TaskCollection to manage tasks and uses the Ui class to generate user-friendly
+ * responses.
  */
 public class Parser {
 
     /**
-     * Enum representing the various commands that can be parsed.
+     * Represents the various commands that the parser can recognize and handle.
      */
     public enum Command {
         BYE,
@@ -37,12 +39,6 @@ public class Parser {
         UNKNOWN
     }
 
-    /**
-     * Parses the command string and returns the corresponding Command enum.
-     * 
-     * @param input The command string from user input
-     * @return The matching Command enum value
-     */
     private static Command parseCommand(String input) {
         return switch (input.toLowerCase()) {
             case "bye" -> Command.BYE;
@@ -61,10 +57,10 @@ public class Parser {
 
     /**
      * Parses input and returns a response string for GUI display.
-     * 
-     * @param input   The full user input string
-     * @param ui      The UI instance for displaying messages
-     * @param tasks   The collection of tasks to operate on
+     *
+     * @param input The full user input string
+     * @param ui The UI instance for displaying messages
+     * @param tasks The collection of tasks to operate on
      * @param storage The storage handler for saving tasks
      * @return The response string to display in the GUI
      */
@@ -153,8 +149,19 @@ public class Parser {
 
             case UNKNOWN:
             default:
-                throw new FinixxException("Oops! That’s not in my to-do spellbook!" +
-                        "\nHere are the commands I understand: list, mark, unmark, delete, todo, deadline, event, find, note, bye");
+                throw new FinixxException("""
+                        Oops! That’s not in my to-do spellbook!
+                        Here are the commands I understand:
+                        - list
+                        - mark
+                        - unmark
+                        - delete
+                        - todo
+                        - deadline
+                        - event
+                        - find
+                        - note
+                        - bye""");
             }
 
         } catch (FinixxException e) {
@@ -178,7 +185,8 @@ public class Parser {
         if (!isInteger(arg)) {
             throw new FinixxException("Ah! " + arg + " is not an integer — I need a proper task number!");
         } else if (Integer.parseInt(arg) < 1 || Integer.parseInt(arg) > tasks.getSize()) {
-            throw new FinixxException("Ah! There’s no task with number '" + arg + "'. Try a number that actually exists!");
+            throw new FinixxException(
+                    "Ah! There’s no task with number '" + arg + "'. Try a number that actually exists!");
         }
     }
 
@@ -188,7 +196,8 @@ public class Parser {
         String notes = (argParts.length > 1) ? argParts[1] : "";
 
         if (description.isEmpty()) {
-            throw new FinixxException("Ah! You need to give your task a proper description so it can rise from the ashes!");
+            throw new FinixxException(
+                    "Ah! You need to give your task a proper description so it can rise from the ashes!");
         }
 
         return new TodoTask(description, false, notes);
@@ -202,11 +211,13 @@ public class Parser {
         String notes = (argParts.length > 1) ? argParts[1] : "";
 
         if (details.isEmpty()) {
-            throw new FinixxException("Ah! You need to give your task a proper description so it can rise from the ashes!");
+            throw new FinixxException(
+                    "Ah! You need to give your task a proper description so it can rise from the ashes!");
         }
 
         if (!details.contains("/by")) {
-            throw new FinixxException("Whoops! your deadline spell didn't work. Use: deadline <description> /by <date>");
+            throw new FinixxException(
+                    "Whoops! your deadline spell didn't work. Use: deadline <description> /by <date>");
         }
 
         String[] detailParts = details.split("\\s*/by\\s*", 2);
@@ -218,7 +229,8 @@ public class Parser {
         }
 
         if (description.isEmpty()) {
-            throw new FinixxException("Ah! You need to give your task a proper description so it can rise from the ashes!");
+            throw new FinixxException(
+                    "Ah! You need to give your task a proper description so it can rise from the ashes!");
         }
 
         // Validate deadline format
@@ -244,11 +256,14 @@ public class Parser {
         String notes = (argParts.length > 1) ? argParts[1].trim() : "";
 
         if (details.isEmpty()) {
-            throw new FinixxException("Ah! You need to give your task a proper description so it can rise from the ashes!");
+            throw new FinixxException(
+                    "Ah! You need to give your task a proper description so it can rise from the ashes!");
         }
 
         if (!details.contains("/from") || !details.contains("/to")) {
-            throw new FinixxException("Whoops! your deadline spell didn't work. Use: event <description> /from <start time> /to <end time>");
+            throw new FinixxException(
+                    "Whoops! your deadline spell didn't work. Use: event <description> /from <start time> /to <end "
+                            + "time>");
         }
 
         try {
@@ -262,7 +277,8 @@ public class Parser {
 
             // Validate
             if (description.isEmpty()) {
-                throw new FinixxException("Ah! You need to give your task a proper description so it can rise from the ashes!");
+                throw new FinixxException(
+                        "Ah! You need to give your task a proper description so it can rise from the ashes!");
             }
             if (startTime.isEmpty()) {
                 throw new FinixxException("Oops! Your event needs a start time to take flight");
@@ -273,7 +289,9 @@ public class Parser {
 
             return new EventTask(description, false, notes, startTime, endTime);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new FinixxException("Whoops! your deadline spell didn't work. Use: event <description> /from <start time> /to <end time>");
+            throw new FinixxException(
+                    "Whoops! your deadline spell didn't work. Use: event <description> /from <start time> /to <end "
+                            + "time>");
         }
     }
 }

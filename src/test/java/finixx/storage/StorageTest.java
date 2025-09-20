@@ -1,20 +1,23 @@
 package finixx.storage;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 import finixx.task.DeadlineTask;
 import finixx.task.EventTask;
 import finixx.task.Task;
 import finixx.task.TaskCollection;
 import finixx.task.TodoTask;
 
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for Storage.
+ */
 public class StorageTest {
     @Test
     void saveTasks_writesCorrectFormat() throws IOException {

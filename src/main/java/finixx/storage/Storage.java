@@ -1,15 +1,15 @@
 package finixx.storage;
 
-import finixx.task.Task;
-import finixx.task.TaskCollection;
-import finixx.ui.Ui;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
+import finixx.task.Task;
+import finixx.task.TaskCollection;
+import finixx.ui.Ui;
 
 /**
  * Handles loading and saving tasks to a file for persistence.
@@ -22,8 +22,8 @@ public class Storage {
     /**
      * Constructs a Storage object with the specified file path.
      * Ensures the file and its parent directory exist.
-     * 
-     * @param filePath the path to the storage file
+     *
+     * @param filePath Path to the storage file
      */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
@@ -57,9 +57,9 @@ public class Storage {
 
     /**
      * Loads tasks from the storage file.
-     * 
-     * @return a TaskCollection containing all loaded tasks
-     * @throws IOException if an I/O error occurs reading from the file
+     *
+     * @return A TaskCollection containing all loaded tasks
+     * @throws IOException If an I/O error occurs reading from the file
      */
     public TaskCollection loadTasks() throws IOException {
         List<String> lines = readLinesFromFile();
@@ -70,7 +70,7 @@ public class Storage {
         return Files.readAllLines(filePath);
     }
 
-    private TaskCollection parseTasks(List<String> lines) throws IOException {
+    private TaskCollection parseTasks(List<String> lines) {
         TaskCollection taskList = new TaskCollection();
         for (String line : lines) {
             Task task = Task.fromSaveFormat(line);
@@ -81,8 +81,8 @@ public class Storage {
 
     /**
      * Saves the given tasks to the storage file.
-     * 
-     * @param tasks the TaskCollection to save
+     *
+     * @param tasks TaskCollection to save
      */
     public void saveTasks(TaskCollection tasks) {
         try {

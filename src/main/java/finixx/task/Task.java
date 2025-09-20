@@ -1,32 +1,26 @@
 package finixx.task;
 
 /**
- * Represents a generic task with a description and completion status.
- * Serves as the base class for specific task types such as Todo, Deadline, and Event.
+ * Represents a general task with a description, completion status, and notes.
+ * This is an abstract class that serves as a base for specific task types.
+ * Stores the description, completion status, and notes of the task.
  */
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
     private String note;
 
     /**
-     * Constructs a Task with the specified description and completion status.
+     * Constructs a Task with the specified description, completion status, and notes.
+     *
      * @param description Description of the task
-     * @param isDone True if the task is completed, false otherwise
-     * @param note Additional notes of the task
+     * @param isDone Completion status of the task
+     * @param note Note associated with the task
      */
     public Task(String description, boolean isDone, String note) {
         this.description = description;
         this.isDone = isDone;
         this.note = note;
-    }
-
-    /**
-     * Returns the status icon representing completion.
-     * @return "X" if done, otherwise a space
-     */
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
     }
 
     /**
@@ -45,6 +39,7 @@ public class Task {
 
     /**
      * Returns the description of this task.
+     *
      * @return Task description
      */
     public String getDescription() {
@@ -53,6 +48,7 @@ public class Task {
 
     /**
      * Returns whether this task is done.
+     *
      * @return True if done, false otherwise
      */
     public boolean isDone() {
@@ -61,6 +57,7 @@ public class Task {
 
     /**
      * Returns the additional notes to this task
+     *
      * @return Task notes
      */
     public String getNote() {
@@ -69,6 +66,7 @@ public class Task {
 
     /**
      * Adds note to this task
+     *
      * @param note Task notes
      */
     public void addNote(String note) {
@@ -77,27 +75,24 @@ public class Task {
 
     /**
      * Returns a string representation of this task for display.
+     *
      * @return String representation of the task
      */
     @Override
     public String toString() {
-        if (isDone) {
-            return "[X] " + this.description;
-        } else {
-            return "[ ] " + this.description;
-        }
+        return (isDone ? "[X] " : "[ ] ") + this.description;
     }
 
     /**
      * Converts this task into a string suitable for saving to a file.
-     * @return String for file storage, or null if not implemented
+     *
+     * @return A string representing the task for storage
      */
-    public String toSaveFormatString() {
-        return null;
-    }
+    public abstract String toSaveFormatString();
 
     /**
      * Creates a Task object from its saved string format.
+     *
      * @param line The line from the save file
      * @return The corresponding Task object
      * @throws IllegalArgumentException If the task type is unknown
@@ -112,19 +107,19 @@ public class Task {
         String desc = parts[2];
 
         switch (taskType) {
-        case ("T"): // T | 1 | read book | Harry Potter
-            String todoNote = parts.length > 3 ?parts[3] : "";
+        case ("T"):
+            String todoNote = parts.length > 3 ? parts[3] : "";
             return new TodoTask(desc, (Integer.parseInt(isDone) == 1), todoNote);
 
-        case ("D"): // D | 0 | return book | by 2025-10-30 | National Library
+        case ("D"):
             String by = parts[3];
-            String deadlineNote = parts.length > 4 ?parts[4] : "";
-            return new DeadlineTask(desc, (Integer.parseInt(isDone) ==1), deadlineNote, by);
+            String deadlineNote = parts.length > 4 ? parts[4] : "";
+            return new DeadlineTask(desc, (Integer.parseInt(isDone) == 1), deadlineNote, by);
 
-        case ("E"): // E | 0 | proj meeting  | from Mon 2pm /to 5pm | CS2103T
+        case ("E"):
             String startTime = parts[3];
             String endTime = parts[4];
-            String eventNote = parts.length > 5 ?parts[5] : "";
+            String eventNote = parts.length > 5 ? parts[5] : "";
             return new EventTask(desc, (Integer.parseInt(isDone) == 1), eventNote, startTime, endTime);
 
         default:

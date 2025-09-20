@@ -4,20 +4,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task that has a deadline.
+ * Represents a deadline task with a description, completion status, optional notes, and a deadline.
  * Extends the abstract Task class by adding a deadline field.
- * Stores the description, completion status, and deadline of the task.
+ * Stores the description, completion status, notes, and deadline of the deadline task.
  */
 public class DeadlineTask extends Task {
     private String deadline;
 
     /**
-     * Constructs a DeadlineTask with the specified description, completion status,
-     * and deadline.
-     * 
-     * @param description the description of the task
-     * @param isDone      the completion status of the task
-     * @param deadline    the deadline of the task in "yyyy-MM-dd" format
+     * Constructs a DeadlineTask with the specified description, completion status, notes, and deadline.
+     *
+     * @param description Description of the task
+     * @param isDone Completion status of the task
+     * @param note Note associated with the task
+     * @param deadline Deadline of the task in "yyyy-MM-dd" format
      */
     public DeadlineTask(String description, boolean isDone, String note, String deadline) {
         super(description, isDone, note);
@@ -28,16 +28,16 @@ public class DeadlineTask extends Task {
     /**
      * Returns the deadline of this task.
      *
-     * @return the deadline as a string
+     * @return The deadline as a string
      */
     public String getDeadline() {
         return this.deadline;
     }
 
     /**
-     * Returns a string representation of this DeadlineTask
-     * 
-     * @return a string representation of the DeadlineTask
+     * Returns a string representation of this DeadlineTask for display.
+     *
+     * @return String representation of the DeadlineTask
      */
     @Override
     public String toString() {
@@ -52,11 +52,13 @@ public class DeadlineTask extends Task {
 
     /**
      * Converts this DeadlineTask into a string suitable for saving to a file.
-     * 
-     * @return a string representing the DeadlineTask for storage
+     *
+     * @return String representing the DeadlineTask for storage
      */
     @Override
     public String toSaveFormatString() {
-        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + deadline + " | " + getNote();
+        return "D | " + (isDone() ? "1" : "0") + " | "
+                + getDescription() + " | " + deadline + " | "
+                + getNote();
     }
 }

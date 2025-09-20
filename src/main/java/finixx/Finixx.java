@@ -1,15 +1,15 @@
 package finixx;
 
+import java.io.IOException;
+
 import finixx.parser.Parser;
 import finixx.storage.Storage;
 import finixx.task.TaskCollection;
 import finixx.ui.Ui;
 
-import java.io.IOException;
-
 /**
- * The main class for the Finixx chatbot application.
- * Handles initialization of storage, task collection, and user interface.
+ * The Finixx class represents the main application for managing tasks.
+ * It handles user interactions, task storage, and task management.
  */
 public class Finixx {
     private Storage storage;
@@ -19,7 +19,7 @@ public class Finixx {
     /**
      * Constructs a Finixx instance with the specified file path for storage.
      * Initializes the UI, storage, and loads tasks from the file.
-     * 
+     *
      * @param filePath Path to the storage file
      */
     public Finixx(String filePath) {
@@ -46,7 +46,7 @@ public class Finixx {
 
     /**
      * Processes user input and returns the corresponding response string.
-     * 
+     *
      * @param input The user input string
      * @return Response string to be displayed in the GUI
      */

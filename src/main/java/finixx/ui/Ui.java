@@ -1,33 +1,55 @@
 package finixx.ui;
 
+import java.io.IOException;
+import java.util.List;
+
 import finixx.task.DeadlineTask;
 import finixx.task.EventTask;
 import finixx.task.Task;
 import finixx.task.TaskCollection;
 import finixx.task.TodoTask;
 
-import java.io.IOException;
-import java.util.List;
-
 /**
- * Handles all user interface (UI) interactions for Finixx.
- * This includes printing greetings, task lists, messages, and error notifications.
+ * Handles user interface messages for the Finixx application.
  */
 public class Ui {
 
     /**
      * Returns the greeting message for the user.
+     *
      * @return Greeting string
      */
     public static String printGreeting() {
-        String Greeting = "Hello there! I'm Finixx 🔥\n"
+        return "Hello there! I'm Finixx 🔥\n"
                 + "Your personal productivity companion\n"
                 + "Let's fly through your tasks together!!";
-        return Greeting;
+    }
+
+    /**
+     * Returns a help message listing available commands.
+     *
+     * @return Help message string
+     */
+    public static String printHelp() {
+        return """
+                Here are the commands you can use:
+                1. todo <description> - Adds a todo task
+                2. deadline <description> /by <yyyy-MM-dd> - Adds a deadline task
+                3. event <description> /from <start time> /to <end time> - Adds an event task
+                4. list - Lists all tasks
+                5. mark <task number> - Marks a task as done
+                6. unmark <task number> - Marks a task as not done
+                7. delete <task number> - Deletes a task
+                8. find <keyword> - Finds tasks containing the keyword
+                9. note <task number> <note> - Adds a note to a task
+                10. bye - Exits the application
+                
+                Everything is all set, start typing!""";
     }
 
     /**
      * Returns an error message when saving tasks fails.
+     *
      * @param e The IOException encountered during saving
      * @return Error message string
      */
@@ -37,6 +59,7 @@ public class Ui {
 
     /**
      * Returns the goodbye message.
+     *
      * @return Goodbye string
      */
     public String printGoodbye() {
@@ -44,7 +67,8 @@ public class Ui {
     }
 
     /**
-     * Returns a formatted list of all tasks.
+     * Returns a formatted list of all tasks in the collection.
+     *
      * @param tasks The collection of tasks to display
      * @return String listing all tasks
      */
@@ -58,6 +82,7 @@ public class Ui {
 
     /**
      * Returns a message indicating a task has been marked as done.
+     *
      * @param tasks The collection of tasks
      * @param taskIndex The index (1-based) of the marked task
      * @return Confirmation message string
@@ -70,6 +95,7 @@ public class Ui {
 
     /**
      * Returns a message indicating a task has been marked as not done.
+     *
      * @param tasks The collection of tasks
      * @param taskIndex The index (1-based) of the unmarked task
      * @return Confirmation message string
@@ -82,6 +108,7 @@ public class Ui {
 
     /**
      * Returns a message indicating a task has been deleted.
+     *
      * @param tasks The collection of tasks
      * @param taskIndex The index (1-based) of the deleted task
      * @return Deletion confirmation message string
@@ -95,6 +122,7 @@ public class Ui {
 
     /**
      * Returns a message indicating a todo task has been added.
+     *
      * @param tasks The collection of tasks
      * @param t The added TodoTask
      * @return Addition confirmation message string
@@ -108,6 +136,7 @@ public class Ui {
 
     /**
      * Returns a message indicating a deadline task has been added.
+     *
      * @param tasks The collection of tasks
      * @param d The added DeadlineTask
      * @return Addition confirmation message string
@@ -121,6 +150,7 @@ public class Ui {
 
     /**
      * Returns a message indicating an event task has been added.
+     *
      * @param tasks The collection of tasks
      * @param e The added EventTask
      * @return Addition confirmation message string
@@ -134,6 +164,7 @@ public class Ui {
 
     /**
      * Returns an error message when file creation fails.
+     *
      * @param e The IOException encountered during file creation
      * @return Error message string
      */
@@ -143,6 +174,7 @@ public class Ui {
 
     /**
      * Returns an error message when loading saved expenses fails.
+     *
      * @return Loading error message string
      */
     public String showLoadingError() {
@@ -151,13 +183,15 @@ public class Ui {
 
     /**
      * Returns a list of tasks that match the search criteria.
+     *
      * @param matchingTasks List of matching tasks
      * @return String listing matching tasks
      */
     public String printFindPossible(List<Task> matchingTasks) {
         StringBuilder matchedTasksList = new StringBuilder();
         for (int i = 0; i < matchingTasks.size(); i++) {
-            matchedTasksList.append((i + 1)).append(".").append(matchingTasks.get(i)).append("\n");;
+            matchedTasksList.append((i + 1)).append(".").append(matchingTasks.get(i)).append("\n");
+            ;
         }
         return "Your matching tasks have soared into view:\n"
                 + matchedTasksList;
@@ -165,6 +199,7 @@ public class Ui {
 
     /**
      * Returns a success message when loading saved tasks succeeds.
+     *
      * @return Loading success message string
      */
     public String showLoadingSuccess() {
@@ -173,6 +208,7 @@ public class Ui {
 
     /**
      * Returns a message indicating a note has been added to the task
+     *
      * @param tasks The collection of tasks
      * @param taskIndex The index (1-based) of the task to add note
      * @return Addition confirmation message string

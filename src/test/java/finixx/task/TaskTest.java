@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit tests for the Task class.
+ */
 public class TaskTest {
     @Test
     public void testMarkAsDone_state() {
@@ -31,5 +34,17 @@ public class TaskTest {
         DeadlineTask d = new DeadlineTask("submit assignment", true, "CS2103T", "2025-10-30");
         d.markAsNotDone();
         assertEquals("[D][ ] submit assignment (by: Oct 30 2025) <CS2103T>", d.toString());
+    }
+
+    @Test
+    public void testGetNote() {
+        TodoTask t = new TodoTask("read book", false, "Harry Potter");
+        assertEquals("Harry Potter", t.getNote());
+    }
+
+    @Test
+    public void testGetDescription() {
+        TodoTask t = new TodoTask("read book", false, "Harry Potter");
+        assertEquals("read book", t.getDescription());
     }
 }

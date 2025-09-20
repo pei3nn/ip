@@ -1,18 +1,21 @@
 package finixx.parser;
 
+import java.io.IOException;
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import finixx.storage.Storage;
 import finixx.task.DeadlineTask;
 import finixx.task.EventTask;
 import finixx.task.TaskCollection;
 import finixx.task.TodoTask;
 import finixx.ui.Ui;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit tests for the Parser class.
@@ -59,7 +62,8 @@ public class ParserTest {
         String input = "todo   ";
         String response = Parser.parse(input, ui, tasks, storage);
 
-        assertTrue(response.contains("Ah! You need to give your task a proper description so it can rise from the ashes!"));
+        assertTrue(response.contains(
+                "Ah! You need to give your task a proper description so it can rise from the ashes!"));
         assertEquals(0, tasks.getSize());
     }
 
@@ -106,8 +110,10 @@ public class ParserTest {
         String response1 = Parser.parse(input1, ui, tasks, storage);
         String response2 = Parser.parse(input2, ui, tasks, storage);
 
-        assertTrue(response1.contains("Ah! You need to give your task a proper description so it can rise from the ashes!"));
-        assertTrue(response2.contains("Ah! You need to give your task a proper description so it can rise from the ashes!"));
+        assertTrue(response1.contains(
+                "Ah! You need to give your task a proper description so it can rise from the ashes!"));
+        assertTrue(response2.contains(
+                "Ah! You need to give your task a proper description so it can rise from the ashes!"));
         assertEquals(0, tasks.getSize());
     }
 
@@ -160,8 +166,10 @@ public class ParserTest {
         String response1 = Parser.parse(input1, ui, tasks, storage);
         String response2 = Parser.parse(input2, ui, tasks, storage);
 
-        assertTrue(response1.contains("Whoops! your deadline spell didn't work. Use: event <description> /from <start time> /to <end time>"));
-        assertTrue(response2.contains("Whoops! your deadline spell didn't work. Use: event <description> /from <start time> /to <end time>"));
+        assertTrue(response1.contains(
+                "Whoops! your deadline spell didn't work. Use: event <description> /from <start time> /to <end time>"));
+        assertTrue(response2.contains(
+                "Whoops! your deadline spell didn't work. Use: event <description> /from <start time> /to <end time>"));
         assertEquals(0, tasks.getSize());
     }
 
@@ -174,8 +182,10 @@ public class ParserTest {
         String response1 = Parser.parse(input1, ui, tasks, storage);
         String response2 = Parser.parse(input2, ui, tasks, storage);
 
-        assertTrue(response1.contains("Ah! You need to give your task a proper description so it can rise from the ashes!"));
-        assertTrue(response2.contains("Ah! You need to give your task a proper description so it can rise from the ashes!"));
+        assertTrue(response1.contains(
+                "Ah! You need to give your task a proper description so it can rise from the ashes!"));
+        assertTrue(response2.contains(
+                "Ah! You need to give your task a proper description so it can rise from the ashes!"));
         assertEquals(0, tasks.getSize());
     }
 
