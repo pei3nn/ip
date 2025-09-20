@@ -3,12 +3,11 @@ package finixx.gui;
 import javafx.application.Application;
 
 /**
- * A launcher class to workaround classpath issues.
- * Works as an entry point to our application
+ * Launcher class for the Finixx GUI application.
+ * This class starts the JavaFX runtime and launches the Main application.
  */
 public class Launcher {
     public static void main(String[] args) {
         Application.launch(Main.class, args);
     }
 }
-
