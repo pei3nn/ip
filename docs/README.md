@@ -12,12 +12,13 @@ Finixx saves your tasks automatically, handles invalid inputs gracefully, and gu
 
 ---
 ## Quick Start
-1. Launch the application using the **FinixxLauncher**.
-2. The chat window opens with a greeting and helpful tips.
-3. Start typing your commands in the chat box.
-4. Finixx will respond interactively, guiding you if the input is incorrect.
-5. View your tasks and responses in the scrollable chat window.
-6. When done, simply close the window—Finixx will save your tasks automatically.
+1. In your terminal, navigate to the jar location.
+2. launch the application using the `java -jar "JAR_FILE_NAME"`.
+3. The chat window opens with a greeting and helpful tips.
+4. Start typing your commands in the chat box.
+5. Finixx will respond interactively, guiding you if the input is incorrect.
+6. View your tasks and responses in the scrollable chat window.
+7. When done, simply close the window — Finixx will save your tasks automatically.
 
 ---
 ## Adding todos
@@ -81,6 +82,29 @@ Here are the tasks in your list:
 2. [D][ ] return book (by: Dec 31 2025)
 3. [E][ ] project meeting (from: 2pm to: 4pm) <discuss milestones>
 ``` 
+
+## Help command
+
+You can view a summary of all commands using the `help` command.
+
+Command: `help`
+
+```
+Here are the commands you can use:
+1. todo <description> | <optional note> - Adds a todo task
+2. deadline <description> /by <yyyy-MM-dd> | <optional note> - Adds a deadline task
+3. event <description> /from <start time> /to <end time> | <optional note> - Adds an event task
+4. list - Lists all tasks
+5. help - Shows this help message
+6. mark <task number> - Marks a task as done
+7. unmark <task number> - Marks a task as not done
+8. delete <task number> - Deletes a task
+9. find <keyword> - Finds tasks containing the keyword
+10. note <task number> <note> - Adds a note to a task
+11. bye - Exits the application
+
+Everything is all set, start typing!
+```
 
 ## Marking tasks as done
 
