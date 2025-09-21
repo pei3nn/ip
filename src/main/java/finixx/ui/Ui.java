@@ -33,16 +33,17 @@ public class Ui {
     public static String printHelp() {
         return """
                 Here are the commands you can use:
-                1. todo <description> - Adds a todo task
-                2. deadline <description> /by <yyyy-MM-dd> - Adds a deadline task
-                3. event <description> /from <start time> /to <end time> - Adds an event task
+                1. todo <description> | <optional note> - Adds a todo task
+                2. deadline <description> /by <yyyy-MM-dd> | <optional note> - Adds a deadline task
+                3. event <description> /from <start time> /to <end time> | <optional note> - Adds an event task
                 4. list - Lists all tasks
-                5. mark <task number> - Marks a task as done
-                6. unmark <task number> - Marks a task as not done
-                7. delete <task number> - Deletes a task
-                8. find <keyword> - Finds tasks containing the keyword
-                9. note <task number> <note> - Adds a note to a task
-                10. bye - Exits the application
+                5. help - Shows this help message
+                6. mark <task number> - Marks a task as done
+                7. unmark <task number> - Marks a task as not done
+                8. delete <task number> - Deletes a task
+                9. find <keyword> - Finds tasks containing the keyword
+                10. note <task number> <note> - Adds a note to a task
+                11. bye - Exits the application
                 
                 Everything is all set, start typing!""";
     }

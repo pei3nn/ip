@@ -28,6 +28,7 @@ public class Parser {
     public enum Command {
         BYE,
         LIST,
+        HELP,
         MARK,
         UNMARK,
         DELETE,
@@ -43,6 +44,7 @@ public class Parser {
         return switch (input.toLowerCase()) {
             case "bye" -> Command.BYE;
             case "list" -> Command.LIST;
+            case "help" -> Command.HELP;
             case "mark" -> Command.MARK;
             case "unmark" -> Command.UNMARK;
             case "delete" -> Command.DELETE;
@@ -81,6 +83,9 @@ public class Parser {
 
             case LIST:
                 return ui.printList(tasks);
+
+            case HELP:
+                return Ui.printHelp();
 
             case MARK:
                 validateTaskIndex(arg, tasks);
@@ -153,6 +158,7 @@ public class Parser {
                         Oops! That’s not in my to-do spellbook!
                         Here are the commands I understand:
                         - list
+                        - help
                         - mark
                         - unmark
                         - delete
